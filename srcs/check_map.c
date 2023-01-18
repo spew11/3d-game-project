@@ -35,9 +35,11 @@ void check_wall(t_map_info *map_info)
 	int **visited = (int **)malloc(sizeof(int *) * (map_info->height));
 	if (!visited)
 		exit_error("malloc failed\n");
-	for (int i = 0; i < map_info->height; i++) {
+	for (int i = 0; i < map_info->height; i++)
+	{
 		visited[i] = (int *)malloc(sizeof(int) * ft_strlen(map_info->map[i]));
-		for (int j = 0; j < ft_strlen(map_info->map[i]); j++) {
+		for (int j = 0; j < ft_strlen(map_info->map[i]); j++)
+		{
 			visited[i][j] = 0;
 		}
 	}
@@ -57,14 +59,14 @@ void check_wall(t_map_info *map_info)
 			if (!is_valid(ft_strlen(map_info->map[ny]), map_info->height, ny, nx))
 				exit_error("map must be surrounded by wall\n");
 			if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == ' ' || map_info->map[ny][nx] == '0'))
+			{
 				printf("here\n");
-				//q_append(q, new_arr(ny, nx));
+				q_append(q, new_arr(ny, nx));
 				visited[ny][nx] = 1;
 			}
 		}
 	}
 	return ;
-
 }
 
 void	check_map(t_map_info *map_info)

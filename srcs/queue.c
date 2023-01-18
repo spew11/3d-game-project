@@ -6,7 +6,7 @@
 /*   By: eunjilee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 20:15:46 by eunjilee          #+#    #+#             */
-/*   Updated: 2023/01/18 21:34:24 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:45:56 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -44,7 +44,7 @@ void q_append(t_queue *q, int *e)
 int *q_pop(t_queue *q)
 {
 	t_node *tmp = q->front;
-	char *e = q->front->content;
+	int *e = q->front->content;
 	q->front = q->front->next;
 	free(tmp);
 	return e;

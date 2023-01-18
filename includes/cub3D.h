@@ -20,7 +20,7 @@
 
 typedef struct s_node
 {
-	char	*content;
+	int	*content;
 	struct s_node	*next;
 }				t_node;
 
