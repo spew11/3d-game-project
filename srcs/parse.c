@@ -71,7 +71,7 @@ void	get_map_size(t_map_info *map_info, int idx)
 	map_info->width = ft_strlen(map_info->map[idx]);
 }
 
-int	      parse_map(t_map_info *map_info, int idx)
+int	parse_map(t_map_info *map_info, int idx)
 {
 	char	**temp;
 	int		i;
@@ -97,6 +97,7 @@ void	parse_start_loc(t_map_info *map_info)
 {
 	int	i;
 	int	j;
+	int	flag = 0;
 
 	i = 0;
 	while (map_info->map[i])
@@ -107,9 +108,11 @@ void	parse_start_loc(t_map_info *map_info)
 			if (map_info->map[i][j] == 'E' || map_info->map[i][j] == 'W' ||
 				map_info->map[i][j] == 'S' || map_info->map[i][j] == 'N')
 			{
+				if (flag == 1)
+					exit_error("player must be one!\n");
 				map_info->player.y = i;
 				map_info->player.x = j;
-				return ;
+				flag = 1;
 			}
 			j++;
 		}

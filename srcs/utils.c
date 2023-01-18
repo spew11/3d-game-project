@@ -77,3 +77,13 @@ int	ft_atoi(const char *str)
 	return (get_answer(str, sign));
 }
 
+int *new_arr(int a, int b)
+{
+	int *arr = (int *)malloc(sizeof(int) * 2);
+	if (!arr) {
+		exit_error("malloc failed\n");
+	}
+	arr[0] = a;
+	arr[1] = b;
+	return arr;
+}

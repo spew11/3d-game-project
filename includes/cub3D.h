@@ -18,6 +18,18 @@
 # define SO		2
 # define NO		3
 
+typedef struct s_node
+{
+	char	*content;
+	struct s_node	*next;
+}				t_node;
+
+typedef struct s_queue
+{
+	t_node	*front;
+	t_node	*back;
+}				t_queue;
+
 typedef struct s_texture {
 	char	*walls[4];
 	char	*item;
@@ -52,6 +64,7 @@ typedef struct s_map_info {
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		*new_arr(int a, int b);
 
 //		parse
 
@@ -87,7 +100,10 @@ void	parse_S(t_map_info *map_info, char *line);
 //		check_map
 
 void	check_map(t_map_info *map_info);
-
+int	q_empty(t_queue *q);
+void	q_append(t_queue *q, int *e);
+int*	q_pop(t_queue *q);
+void	q_clear(t_queue *q);
 
 
 #endif
