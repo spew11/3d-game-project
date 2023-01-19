@@ -6,9 +6,7 @@ int	skip_white_space(char *line)
 
 	i = 0;
 	while (line[i] && is_space(line[i]))
-	{
 		i++;
-	}
 	return (i);
 }
 
