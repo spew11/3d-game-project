@@ -63,10 +63,13 @@ void check_wall(t_map_info *map_info)
 			int nx = x + dx[i];
 			if (is_valid(map_info, ny, nx))
 			{
-				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == ' ' || map_info->map[ny][nx] == '0'))
+				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == '0' || map_info->map[ny][nx] == '2'))
 				{
 					q_append(q, new_arr(ny, nx));
 					visited[ny][nx] = 1;
+				}
+				else if (visited[ny][nx] == 0  && map_info->map[ny][nx] == ' ') {
+					exit_error("map must be surrounded by wall\n");
 				}
 			}
 			else
@@ -84,7 +87,7 @@ void	check_map(t_map_info *map_info)
 	check_texture(map_info);
 	//다른 숫자 있는지 체크하기
 	for (int i = 0; i < map_info->height; i++) {
-		for (int j = 0; j < map_info->widths[j]; j++) {
+		for (int j = 0; j < map_info->widths[i]; j++) {
 			if ((map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
 				map_info->map[i][j] != '2' && map_info->map[i][j] != 'N' &&
 				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'W' &&
