@@ -88,13 +88,11 @@ void	check_map(t_map_info *map_info)
 	//다른 숫자 있는지 체크하기
 	for (int i = 0; i < map_info->height; i++) {
 		for (int j = 0; j < map_info->widths[i]; j++) {
-			if ((map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
+			if (map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
 				map_info->map[i][j] != '2' && map_info->map[i][j] != 'N' &&
 				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'W' &&
-				map_info->map[i][j] != 'E' && map_info->map[i][j] != ' '))
+				map_info->map[i][j] != 'E' && map_info->map[i][j] != ' ')
 			{
-				printf("i: %d, j : %d\n", i, j);
-				printf("**%d\n", (int)map_info->map[i][j]);
 				exit_error("invalid map element\n");
 			}
 		}

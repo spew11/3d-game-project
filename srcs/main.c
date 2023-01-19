@@ -21,26 +21,29 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd);
 	init_map_info(&map_info, fd);
-	printf("==== map_line ====\n%s\n", map_info.map_line);
-	printf("\n");
-	for (int i = 0; map_info.map[i]; i++)
-		printf("%s\n", map_info.map[i]);
-	printf("\n");
-	printf("dis_size = %d %d\n", map_info.dis_size.width, map_info.dis_size.height);
-	printf("==== texture ====\n");
-	for (int i = 0; i < 4; i++)
-		printf("wall[%d] = %s\n", i, map_info.texture.walls[i]);
-	printf("item = %s\n", map_info.texture.item);
-	for (int i = 0; i < 3; i++)
-		printf("floor[%d] = %d\n", i, map_info.texture.floor[i]);
-	for (int i = 0; i < 3; i++)
-		printf("ceil[%d] = %d\n", i, map_info.texture.ceil[i]);
-	printf("Map size : height = %d, ", map_info.height);
-	for (int i = 0; i < map_info.height; i++) {
-		printf("%d ", map_info.widths[i]);
-	}
-	printf("\n");
-	check_map(&map_info);
+	// printf("dis_size = %d %d\n", map_info.dis_size.width, map_info.dis_size.height);
+	// for (int i = 0; i < 4; i++)
+	// printf("wall[%d] = %s\n", i, map_info.texture.walls[i]);
+	// printf("item = %s\n", map_info.texture.item);
+	// for (int i = 0; i < 3; i++)
+	// 	printf("floor[%d] = %d\n", i, map_info.texture.floor[i]);
+	// for (int i = 0; i < 3; i++)
+	// 	printf("ceil[%d] = %d\n", i, map_info.texture.ceil[i]);
+	// printf("==== map_line ====\n%s\n", map_info.map_line);
+	// printf("\n");
+	// for (int i = 0; map_info.map[i]; i++)
+	// 	printf("%s\n", map_info.map[i]);
+	// printf("\n");
+	
+	// printf("==== texture ====\n");
+
+	
+	// printf("Map size : height = %d, ", map_info.height);
+	// for (int i = 0; i < map_info.height; i++) {
+	// 	printf("%d ", map_info.widths[i]);
+	// }
+	// printf("\n");
+	//check_map(&map_info);
 	// system("leaks cub3D");
 	// map_info.mlx = mlx_init();
 	// map_info.win = mlx_new_window(map_info.mlx, \

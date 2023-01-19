@@ -19,14 +19,14 @@ static int	count(char const *s, char c)
 
 	i = 0;
 	count = 0;
-	while (s[i] == c && s[i] != '\0')
+	if (s[i] == c && s[i] != '\0')
 		i++;
 	while (s[i] != '\0')
 	{
 		count++;
 		while (s[i] != '\0' && s[i] != c)
 			i++;
-		while (s[i] == c && s[i] != '\0')
+		if (s[i] == c && s[i] != '\0')
 			i++;
 	}	
 	return (count);
@@ -34,7 +34,7 @@ static int	count(char const *s, char c)
 
 static void	get_length(int *size, int *k, char const *s, char c)
 {
-	while (s[*k] != '\0' && s[*k] == c)
+	if (s[*k] != '\0' && s[*k] == c)
 		*k += 1;
 	while (s[*k] != '\0' && s[*k] != c)
 	{
@@ -70,8 +70,17 @@ static void	go_split(char **strs, char const *s, char c, int i)
 	{
 		size = 0;
 		get_length(&size, &k, s, c);
+		// printf("s = %d k = %d\n", size, k);
 		if (!size)
+		{
+			// printf("aasdfasdfs %d\n", i);
+			strs[i] = (char *)malloc(sizeof(char) * (2));
+			strs[i][0] = ' ';
+			strs[i][1] = '\0';
+			printf("***%d****%s****\n", i, strs[i]);
+			i++;
 			continue ;
+		}
 		strs[i] = (char *)malloc(sizeof(char) * (size + 1));
 		if (strs[i] == 0)
 		{
@@ -83,8 +92,14 @@ static void	go_split(char **strs, char const *s, char c, int i)
 		while (j < size)
 			strs[i][j++] = s[k++];
 		strs[i][j] = '\0';
-		++i;
+		// if (i == 6) {
+			// printf("****%s****\n", strs[i]);
+		// }
+		printf("***%d****%s****\n", i, strs[i]);
+		i++;
 	}
+	//printf("hihi %d", i);
+	//printf("before end***%d****%s****\n", i, strs[11]);
 	strs[i] = 0;
 }
 
@@ -97,10 +112,12 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	size = count(s, c);
+	// printf("%s = %d\n", s, size);
 	strs = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!strs)
 		exit_error("malloc error\n");
 	i = 0;
 	go_split(strs, s, c, i);
+	//printf("end*******%s****\n", strs[6]);
 	return (strs);
 }

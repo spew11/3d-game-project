@@ -1,11 +1,11 @@
 #include "cub3D.h"
 
-void	parse_dis_size(char *line, t_map_info *map_info)
+void	parse_dis_size(t_map_info *map_info, char *line, int idx)
 {
 	char	**temp;
 	int		i;
 
-	temp = ft_split(line, ' ');
+	temp = ft_split(line + idx, ' ');
 	i = 0;
 	while (temp[i])
 		i++;
@@ -15,24 +15,23 @@ void	parse_dis_size(char *line, t_map_info *map_info)
 	map_info->dis_size.height = ft_atoi(temp[2]);
 }
 
-void	parse_walls(t_texture *texture, int wall_type, char *line)
+void	parse_walls(t_texture *texture, int wall_type, char *line, int idx)
 {
 	char	**temp;
-
-	temp = ft_split(line, ' ');
+	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
 	texture->walls[wall_type] = ft_strdup(temp[1]);
 	free_arr_2(temp);
 }
 
-void	parse_F(t_map_info *map_info, char *line)
+void	parse_F(t_map_info *map_info, char *line, int idx)
 {
 	int		i;
 	char	**temp;
 	char	**temp2;
 
-	temp = ft_split(line, ' ');
+	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
 	temp2 = ft_split(temp[1], ',');
@@ -48,13 +47,13 @@ void	parse_F(t_map_info *map_info, char *line)
 	free_arr_2(temp2);
 }
 
-void	parse_C(t_map_info *map_info, char *line)
+void	parse_C(t_map_info *map_info, char *line, int idx)
 {
 	int		i;
 	char	**temp;
 	char	**temp2;
 
-	temp = ft_split(line, ' ');
+	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
 	temp2 = ft_split(temp[1], ',');
@@ -70,12 +69,12 @@ void	parse_C(t_map_info *map_info, char *line)
 	free_arr_2(temp2);
 }
 
-void	parse_S(t_map_info *map_info, char *line)
+void	parse_S(t_map_info *map_info, char *line, int idx)
 {
 	int		i;
 	char	**temp;
 
-	temp = ft_split(line, ' ');
+	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
 	map_info->texture.item = ft_strdup(temp[1]);

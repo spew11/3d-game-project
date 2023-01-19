@@ -92,11 +92,11 @@ int		is_space(char c);
 int		count_arr_2(char **arr);
 
 //		parse_config
-void	parse_dis_size(char *line, t_map_info *map_info);
-void	parse_walls(t_texture *texture, int wall_type, char *line);
-void	parse_F(t_map_info *map_info, char *line);
-void	parse_C(t_map_info *map_info, char *line);
-void	parse_S(t_map_info *map_info, char *line);
+void	parse_dis_size(t_map_info *map_info, char *line, int idx);
+void	parse_walls(t_texture *texture, int wall_type, char *line, int idx);
+void	parse_F(t_map_info *map_info, char *line, int idx);
+void	parse_C(t_map_info *map_info, char *line, int idx);
+void	parse_S(t_map_info *map_info, char *line, int idx);
 
 //		check_map
 
