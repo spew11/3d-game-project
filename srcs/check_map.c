@@ -25,7 +25,7 @@ void	check_texture(t_map_info *map_info)
 int is_valid(t_map_info *map_info, int y, int x)
 {
 	if (y >= 0 && y < map_info->height && x >= 0) {
-		if (x < ft_strlen(map_info->map[y])) {
+		if (x < map_info->widths[y]) {
 			return (1);
 		}
 	}
@@ -42,8 +42,8 @@ void check_wall(t_map_info *map_info)
 		exit_error("malloc failed\n");
 	for (int i = 0; i < map_info->height; i++)
 	{
-		visited[i] = (int *)malloc(sizeof(int) * ft_strlen(map_info->map[i]));
-		for (int j = 0; j < ft_strlen(map_info->map[i]); j++)
+		visited[i] = (int *)malloc(sizeof(int) * map_info->widths[i]);
+		for (int j = 0; j < map_info->widths[i]; j++)
 		{
 			visited[i][j] = 0;
 		}
@@ -83,5 +83,18 @@ void	check_map(t_map_info *map_info)
 	//	check map_info error
 	check_texture(map_info);
 	//다른 숫자 있는지 체크하기
+	for (int i = 0; i < map_info->height; i++) {
+		for (int j = 0; j < map_info->widths[j]; j++) {
+			if ((map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
+				map_info->map[i][j] != '2' && map_info->map[i][j] != 'N' &&
+				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'W' &&
+				map_info->map[i][j] != 'E' && map_info->map[i][j] != ' '))
+			{
+				printf("i: %d, j : %d\n", i, j);
+				printf("**%d\n", (int)map_info->map[i][j]);
+				exit_error("invalid map element\n");
+			}
+		}
+	}
 	check_wall(map_info);
 }

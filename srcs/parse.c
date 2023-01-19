@@ -57,7 +57,7 @@ int	init_config(t_map_info *map_info)
 	return (i);
 }
 
-void	get_map_size(t_map_info *map_info, int idx)
+void	get_map_heigth(t_map_info *map_info, int idx)
 {
 	int	i;
 
@@ -67,8 +67,6 @@ void	get_map_size(t_map_info *map_info, int idx)
 		map_info->height++;
 		i++;
 	}
-	i = 0;
-	map_info->width = ft_strlen(map_info->map[idx]);
 }
 
 int	parse_map(t_map_info *map_info, int idx)
@@ -77,12 +75,17 @@ int	parse_map(t_map_info *map_info, int idx)
 	int		i;
 
 	i = idx;
-	get_map_size(map_info, idx);
+	get_map_heigth(map_info, idx);
+	/*make widths arr*/
+	map_info->widths = (int *)malloc(sizeof(int) * map_info->height);
+	if (!map_info->widths)
+		exit_error("malloc failed\n");
 	i = 0;
 	temp = (char **)malloc(sizeof(char *) * (map_info->height + 1));
 	while (i < map_info->height)
 	{
 		temp[i] = ft_strdup(map_info->map[idx + i]);
+		map_info->widths[i] = ft_strlen(temp[i]);
 		if (!temp[i])
 			exit_error("malloc error\n");
 		i++;

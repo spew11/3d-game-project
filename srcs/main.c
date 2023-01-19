@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:44:04 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/19 16:06:24 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:12:28 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ int	main(int argc, char *argv[])
 		printf("floor[%d] = %d\n", i, map_info.texture.floor[i]);
 	for (int i = 0; i < 3; i++)
 		printf("ceil[%d] = %d\n", i, map_info.texture.ceil[i]);
-	printf("Map size : w=%d h=%d\n", map_info.width, map_info.height);
+	printf("Map size : height = %d, ", map_info.height);
+	for (int i = 0; i < map_info.height; i++) {
+		printf("%d ", map_info.widths[i]);
+	}
+	printf("\n");
 	check_map(&map_info);
 	// system("leaks cub3D");
 	// map_info.mlx = mlx_init();

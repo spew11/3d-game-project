@@ -53,7 +53,8 @@ typedef struct s_map_info {
 	t_player	player;
 	void	*mlx;
 	void	*win;
-	int		width;
+//	int		width; 필요없음
+	int		*widths;
 	int		height;
 	char	**map;
 	char	*map_line;
