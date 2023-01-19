@@ -132,9 +132,9 @@ void	init_map_info(t_map_info *map_info, int fd)
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
-	map_info->map = ft_split(map_info->map_line, '\n');
-	for (int i = 0; i < 19; i++)
+	map_info->map = ft_split_nl(map_info->map_line, '\n');
+	for (int i = 0; i < 18; i++)
 		printf("%s\n", map_info->map[i]);
 	parse_map(map_info);
-	//parse_start_loc(map_info);
+	parse_start_loc(map_info);
 }

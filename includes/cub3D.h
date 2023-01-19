@@ -71,6 +71,7 @@ int		*new_arr(int a, int b);
 
 void	init_map_info(t_map_info *map_info, int fd);
 char	**ft_split(char const *s, char c);
+char	**ft_split_nl(char const *s, char c);
 
 //		check & error
 
