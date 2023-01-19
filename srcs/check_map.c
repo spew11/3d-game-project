@@ -22,16 +22,21 @@ void	check_texture(t_map_info *map_info)
 	}
 }
 
-int is_valid(int width, int height, int y, int x)
+int is_valid(t_map_info *map_info, int y, int x)
 {
-	return (y >= 0 && y < height && x >= 0 && x < width);
+	if (y >= 0 && y < map_info->height && x >= 0) {
+		if (x < ft_strlen(map_info->map[y])) {
+			return (1);
+		}
+	}
+	return (0);
 }
 
 
 void check_wall(t_map_info *map_info)
 {
-	int dy[] = {1, -1, 0, 0};
-	int dx[] = {0, 0, 1, -1};
+	int dy[] = {-1, 1, 0, 0};
+	int dx[] = {0, 0, -1, 1};
 	int **visited = (int **)malloc(sizeof(int *) * (map_info->height));
 	if (!visited)
 		exit_error("malloc failed\n");
@@ -56,13 +61,17 @@ void check_wall(t_map_info *map_info)
 		{
 			int ny = y + dy[i];
 			int nx = x + dx[i];
-			if (!is_valid(ft_strlen(map_info->map[ny]), map_info->height, ny, nx))
-				exit_error("map must be surrounded by wall\n");
-			if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == ' ' || map_info->map[ny][nx] == '0'))
+			if (is_valid(map_info, ny, nx))
 			{
-				printf("here\n");
-				q_append(q, new_arr(ny, nx));
-				visited[ny][nx] = 1;
+				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == ' ' || map_info->map[ny][nx] == '0'))
+				{
+					q_append(q, new_arr(ny, nx));
+					visited[ny][nx] = 1;
+				}
+			}
+			else
+			{
+				exit_error("map must be surrounded by wall\n");
 			}
 		}
 	}
