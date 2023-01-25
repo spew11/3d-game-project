@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:44:04 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/25 21:25:36 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:51:29 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	main(int argc, char *argv[])
 {
 	t_map_info	map_info;
 	int			fd;
-
+	/*floor ceiling init*/
+	map_info.texture.floor = -1;
+	map_info.texture.ceil = -1;
 	check_arg(argc, argv);
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd);
@@ -40,8 +42,8 @@ int	main(int argc, char *argv[])
 	for (int i = 0; map_info.map[i]; i++)
 		printf("%s\n", map_info.map[i]);
 	printf("\n");
-	/*
 	check_map(&map_info);
+	/*
 	system("leaks cub3D");
 	map_info.mlx = mlx_init();
 	map_info.win = mlx_new_window(map_info.mlx, \

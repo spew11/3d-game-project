@@ -13,13 +13,9 @@ void	check_texture(t_map_info *map_info)
 	}
 	if (!map_info->texture.item)
 		exit_error("item error\n");
-	i = 0;
-	while (i < 3)
-	{
-		if (!map_info->texture.floor[i] || !map_info->texture.ceil[i])
-			exit_error("texture error\n");
-		i++;
-	}
+	if (map_info->texture.floor == -1 || map_info->texture.ceil == -1)
+		exit_error("texture error\n");
+	return ;
 }
 
 int is_valid(t_map_info *map_info, int y, int x)
