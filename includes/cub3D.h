@@ -33,8 +33,8 @@ typedef struct s_queue
 typedef struct s_texture {
 	char	*walls[4];
 	char	*item;
-	int		floor[3];
-	int		ceil[3];
+	int		floor;
+	int		ceil;
 }			t_texture;
 
 typedef struct s_dis_size {
@@ -53,7 +53,6 @@ typedef struct s_map_info {
 	t_player	player;
 	void	*mlx;
 	void	*win;
-//	int		width; 필요없음
 	int		*widths;
 	int		height;
 	char	**map;
@@ -66,6 +65,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		*new_arr(int a, int b);
+char	*ft_strdup_except_nl(const char *s);
 
 //		parse
 

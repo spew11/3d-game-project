@@ -87,3 +87,24 @@ int *new_arr(int a, int b)
 	arr[1] = b;
 	return arr;
 }
+
+char	*ft_strdup_except_nl(const char *s1)
+{
+	int		i;
+	char	*arr;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	arr = (char *)malloc(sizeof(char) * i);
+	if (!arr)
+		return (NULL);
+	arr[i - 1] = '\0';
+	i -= 2;
+	while (i >= 0)
+	{
+		arr[i] = s1[i];
+		i--;
+	}
+	return (arr);
+}

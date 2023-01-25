@@ -21,7 +21,7 @@ void	parse_walls(t_texture *texture, int wall_type, char *line, int idx)
 	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
-	texture->walls[wall_type] = ft_strdup(temp[1]);
+	texture->walls[wall_type] = ft_strdup_except_nl(temp[1]);
 	free_arr_2(temp);
 }
 
@@ -30,6 +30,7 @@ void	parse_F(t_map_info *map_info, char *line, int idx)
 	int		i;
 	char	**temp;
 	char	**temp2;
+	int		*rgb;
 
 	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
@@ -37,12 +38,17 @@ void	parse_F(t_map_info *map_info, char *line, int idx)
 	temp2 = ft_split(temp[1], ',');
 	if (count_arr_2(temp2) != 3)
 		exit_error("incorrect config\n");
+	rgb = (int *)malloc(sizeof(int) * 3);
 	i = 0;
 	while (i < 3)
 	{
-		map_info->texture.floor[i] = atoi(temp2[i]);
+		rgb[i] = ft_atoi(temp2[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			exit_error("R, G, B colors in range[0, 255]\n");
 		i++;
 	}
+	map_info->texture.floor = rgb[0] | rgb[1] << 8 | rgb[2] << 16;
+	free(rgb);
 	free_arr_2(temp);
 	free_arr_2(temp2);
 }
@@ -52,6 +58,7 @@ void	parse_C(t_map_info *map_info, char *line, int idx)
 	int		i;
 	char	**temp;
 	char	**temp2;
+	int		*rgb;
 
 	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
@@ -59,12 +66,17 @@ void	parse_C(t_map_info *map_info, char *line, int idx)
 	temp2 = ft_split(temp[1], ',');
 	if (count_arr_2(temp2) != 3)
 		exit_error("incorrect config\n");
+	rgb = (int *)malloc(sizeof(int) * 3);
 	i = 0;
 	while (i < 3)
 	{
-		map_info->texture.ceil[i] = atoi(temp2[i]);
+		rgb[i] = ft_atoi(temp2[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			exit_error("R, G, B colors in range[0, 255]\n");
 		i++;
 	}
+	map_info->texture.ceil = rgb[0] | rgb[1] << 8 | rgb[2] << 16;
+	free(rgb);
 	free_arr_2(temp);
 	free_arr_2(temp2);
 }
@@ -77,6 +89,6 @@ void	parse_S(t_map_info *map_info, char *line, int idx)
 	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
-	map_info->texture.item = ft_strdup(temp[1]);
+	map_info->texture.item = ft_strdup_except_nl(temp[1]);
 	free_arr_2(temp);
 }
