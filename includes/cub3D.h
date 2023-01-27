@@ -22,7 +22,7 @@
 # define SO		2
 # define NO		3
 
-# define THETA	90
+# define THETA	30
 # define PI		3.14159265359
 
 typedef struct s_node {
@@ -47,7 +47,7 @@ typedef struct s_dis_size {
 	int	height;
 }			t_dis_size;
 
-typedef struct player {
+typedef struct s_player {
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -57,6 +57,16 @@ typedef struct player {
 	double	move_speed;
 
 }			t_player;
+
+typedef struct s_ray {
+	double	camera_X;
+	double	rayDir_X;
+	double	rayDir_Y;
+	int		map_x;
+	int		map_y;
+
+
+}			t_ray;
 
 typedef struct s_map_info {
 	t_dis_size	dis_size;
@@ -119,8 +129,8 @@ void	q_clear(t_queue *q);
 
 //		key_press
 
-int	key_press(int keycode, t_map_info *map_info);
-int	exit_game(t_map_info *map_info);
+int		key_press(int keycode, t_map_info *map_info);
+int		exit_game(t_map_info *map_info);
 
 //		move
 
