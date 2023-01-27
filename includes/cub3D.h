@@ -12,6 +12,8 @@
 # define KEY_A			0
 # define KEY_S			1
 # define KEY_D			2
+# define KEY_L			123
+# define KEY_R			124
 
 # define EA		0
 # define WE		1
@@ -103,5 +105,20 @@ int		q_empty(t_queue *q);
 void	q_append(t_queue *q, int *e);
 int*	q_pop(t_queue *q);
 void	q_clear(t_queue *q);
+
+//		key_press
+
+int	key_press(int keycode, t_map_info *map_info);
+int	exit_game(t_map_info *map_info);
+
+//		move
+
+void	move_w(t_map_info *map_info);
+void	move_a(t_map_info *map_info);
+void	move_s(t_map_info *map_info);
+void	move_d(t_map_info *map_info);
+void	move_l(t_map_info *map_info);
+void	move_r(t_map_info *map_info);
+
 
 #endif
