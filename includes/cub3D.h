@@ -18,17 +18,15 @@
 # define SO		2
 # define NO		3
 
-typedef struct s_node
-{
-	int	*content;
+typedef struct s_node {
+	int				*content;
 	struct s_node	*next;
-}				t_node;
+}			t_node;
 
-typedef struct s_queue
-{
+typedef struct s_queue {
 	t_node	*front;
 	t_node	*back;
-}				t_queue;
+}			t_queue;
 
 typedef struct s_texture {
 	char	*walls[4];
@@ -51,12 +49,12 @@ typedef struct s_map_info {
 	t_dis_size	dis_size;
 	t_texture	texture;
 	t_player	player;
-	void	*mlx;
-	void	*win;
-	int		*widths;
-	int		height;
-	char	**map;
-	char	*map_line;
+	void		*mlx;
+	void		*win;
+	int			*widths;
+	int			height;
+	char		**map;
+	char		*map_line;
 }			t_map_info;
 
 //		utils
@@ -81,7 +79,6 @@ void	exit_error(char *msg);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_atoi(const char *str);
 
-
 //		memory_utils
 
 void	free_arr_2(char **arr);
@@ -102,10 +99,9 @@ void	parse_S(t_map_info *map_info, char *line, int idx);
 //		check_map
 
 void	check_map(t_map_info *map_info);
-int	q_empty(t_queue *q);
+int		q_empty(t_queue *q);
 void	q_append(t_queue *q, int *e);
 int*	q_pop(t_queue *q);
 void	q_clear(t_queue *q);
-
 
 #endif
