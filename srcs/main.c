@@ -19,6 +19,7 @@ void	print_map_2(t_map_info map_info);
 void	print_textures(t_map_info map_info);
 void	print_dis_size(t_map_info map_info);
 void	print_map(t_map_info map_info);
+void	print_player(t_map_info map_info);
 
 int	main(int argc, char *argv[])
 {
@@ -36,13 +37,12 @@ int	main(int argc, char *argv[])
 
 	check_map(&map_info);
 
-	system("leaks cub3D");
 	map_info.mlx = mlx_init();
 	map_info.win = mlx_new_window(map_info.mlx, \
 	map_info.dis_size.width, map_info.dis_size.height, "taehyeong's game");
 	// map_info.img = set_img(map_info.mlx);
 	// draw_map(map_info);
-	mlx_hook(map_info.win, KEY_RELEASE, 0, &key_press, &map_info);
+	mlx_hook(map_info.win, KEY_PRESS, 0, &key_press, &map_info);
 	mlx_hook(map_info.win, KEY_EXIT, 0, &exit_game, &map_info);
 	mlx_loop(map_info.mlx);
 }
@@ -55,6 +55,7 @@ void	print_parsed(t_map_info map_info)
 	print_dis_size(map_info);
 	print_map_size(map_info);
 	print_map_info(map_info);
+	print_player(map_info);
 }
 
 void	print_textures(t_map_info map_info)
@@ -112,4 +113,14 @@ void	print_map_info(t_map_info map_info)
 	printf("mlx = %lf\n", map_info.mlx);
 	printf("win = %lf\n", map_info.win);
 	printf("\n");
+}
+
+void	print_player(t_map_info map_info)
+{
+	printf("\n");
+	printf("========= player ==========\n");
+	printf("pos_x=%lf pos_y=%lf\n", map_info.player.pos_x, map_info.player.pos_y);
+	printf("dir_x=%lf dir_y=%lf\n", map_info.player.dir_x, map_info.player.dir_y);
+	printf("plane_x=%lf plane_y=%lf\n", map_info.player.plane_x, map_info.player.plane_y);
+
 }

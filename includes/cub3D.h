@@ -4,7 +4,9 @@
 # include <stdio.h>
 # include "../mlx/mlx.h"
 # include "get_next_line.h"
+# include <math.h>
 
+# define KEY_PRESS		2
 # define KEY_RELEASE	3
 # define KEY_EXIT		17
 # define KEY_ESC		53
@@ -19,6 +21,9 @@
 # define WE		1
 # define SO		2
 # define NO		3
+
+# define THETA	90
+# define PI		3.14159265359
 
 typedef struct s_node {
 	int				*content;
@@ -43,8 +48,14 @@ typedef struct s_dis_size {
 }			t_dis_size;
 
 typedef struct player {
-	int	x;
-	int	y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+
 }			t_player;
 
 typedef struct s_map_info {
@@ -117,8 +128,13 @@ void	move_w(t_map_info *map_info);
 void	move_a(t_map_info *map_info);
 void	move_s(t_map_info *map_info);
 void	move_d(t_map_info *map_info);
-void	move_l(t_map_info *map_info);
-void	move_r(t_map_info *map_info);
 
+//		rotate
 
+void	rotate_l(t_map_info *map_info, t_player *player);
+void	rotate_r(t_map_info *map_info, t_player *player);
+
+//		parse_player
+
+void	parse_player(t_map_info *map_info);
 #endif

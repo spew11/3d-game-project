@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+void	print_player_k(t_map_info map_info);
 
 int	exit_game(t_map_info *map_info)
 {
@@ -31,10 +32,20 @@ int	key_press(int keycode, t_map_info *map_info)
 	else if (keycode == KEY_D)
 		move_d(map_info);
 	else if (keycode == KEY_L)
-		move_l(map_info);
+		rotate_l(map_info, &map_info->player);
 	else if (keycode == KEY_R)
-		move_r(map_info);
+		rotate_r(map_info, &map_info->player);
 	else if (keycode == KEY_ESC)
 		exit_game(map_info);
+	print_player_k(*map_info);
 	return (0);
+}
+
+void	print_player_k(t_map_info map_info)
+{
+	printf("\n");
+	printf("========= player ==========\n");
+	printf("pos_x=%lf pos_y=%lf\n", map_info.player.pos_x, map_info.player.pos_y);
+	printf("dir_x=%lf dir_y=%lf	%lf\n", map_info.player.dir_x, map_info.player.dir_y, pow(map_info.player.dir_x, 2) + pow(map_info.player.dir_y, 2));
+	printf("plane_x=%lf plane_y=%lf	%lf\n", map_info.player.plane_x, map_info.player.plane_y, pow(map_info.player.plane_x, 2) + pow(map_info.player.plane_y, 2));
 }

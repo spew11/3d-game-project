@@ -46,8 +46,8 @@ void check_wall(t_map_info *map_info)
 	}
 	t_queue	*q = (t_queue *)malloc(sizeof(t_queue) * 1);
 	q->front = 0;
-	q_append(q, new_arr(map_info->player.y, map_info->player.x));
-	visited[map_info->player.y][map_info->player.x] = 1;
+	q_append(q, new_arr(map_info->player.pos_y, map_info->player.pos_x));
+	visited[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = 1;
 	while (!q_empty(q))
 	{
 		int *now = q_pop(q);

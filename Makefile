@@ -25,7 +25,8 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		queue.c \
 		key_press.c \
 		move.c \
-		move_2.c \
+		rotate.c \
+		parse_player.c \
 		)
 
 OBJS = $(SRCS:.c=.o)

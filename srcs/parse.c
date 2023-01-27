@@ -33,7 +33,7 @@ int	init_config(t_map_info *map_info, char *line, int idx)
 	return (1);
 }
 
-void	parse_start_loc(t_map_info *map_info)
+void	parse_player_pos(t_map_info *map_info)
 {
 	int	i;
 	int	j;
@@ -50,8 +50,8 @@ void	parse_start_loc(t_map_info *map_info)
 			{
 				if (flag == 1)
 					exit_error("player must be one!\n");
-				map_info->player.y = i;
-				map_info->player.x = j;
+				map_info->player.pos_y = i;
+				map_info->player.pos_x = j;
 				flag = 1;
 			}
 			j++;
@@ -59,6 +59,7 @@ void	parse_start_loc(t_map_info *map_info)
 		i++;
 	}
 }
+
 void	get_widths(t_map_info *map_info)
 {
 	int	i;
@@ -106,5 +107,6 @@ void	init_map_info(t_map_info *map_info, int fd)
 	}
 	map_info->map = ft_split_nl(map_info->map_line, '\n');
 	get_widths(map_info);
-	parse_start_loc(map_info);
+	parse_player_pos(map_info);
+	parse_player(map_info);
 }
