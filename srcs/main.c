@@ -25,6 +25,7 @@ void	loop(t_map_info *map_info)
 {
 	draw_updown(map_info->dis_size, &map_info->texture);
 	draw_img(map_info, map_info->dis_size, &map_info->texture);
+	// raycast(map_info, map_info->dis_size);
 }
 
 int	main(int argc, char *argv[])

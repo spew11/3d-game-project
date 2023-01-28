@@ -71,7 +71,7 @@ typedef struct s_player {
 }			t_player;
 
 typedef struct s_ray {
-	double	camera_X;
+	double	cameraX;
 	double	rayDirX;
 	double	rayDirY;
 	int		mapX;
@@ -94,6 +94,7 @@ typedef struct s_map_info {
 	t_dis_size	dis_size;
 	t_texture	texture;
 	t_player	player;
+	t_ray		ray;
 	void		*mlx;
 	void		*win;
 	int			*widths;
@@ -175,10 +176,14 @@ void	parse_player(t_map_info *map_info);
 void	draw_updown(t_dis_size dis_size, t_texture *texture);
 void	draw_img(t_map_info *map_info, t_dis_size dis_size, t_texture *texture);
 
-//		ray
+//		ray_init
 
-void	ray_init(t_map_info *map_info, t_ray *ray, t_player *player);
+void	ray_init(t_ray *ray, t_player *player, t_dis_size dis_size, int x);
+
+//		raycast
+
 void	dda(t_map_info *map_info, t_ray *ray);
+void	raycast(t_map_info *map_info, t_dis_size dis_size);
 
 
 #endif

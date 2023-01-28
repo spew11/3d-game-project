@@ -27,8 +27,9 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		move.c \
 		rotate.c \
 		parse_player.c \
-		ray.c \
+		ray_init.c \
 		draw.c \
+		raycast.c \
 		)
 
 OBJS = $(SRCS:.c=.o)
