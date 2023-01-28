@@ -21,6 +21,12 @@ void	print_dis_size(t_map_info map_info);
 void	print_map(t_map_info map_info);
 void	print_player(t_map_info map_info);
 
+void	loop(t_map_info *map_info)
+{
+	draw_updown(map_info->dis_size, &map_info->texture);
+	draw_img(map_info, map_info->dis_size, &map_info->texture);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_map_info	map_info;
@@ -42,8 +48,14 @@ int	main(int argc, char *argv[])
 	map_info.dis_size.width, map_info.dis_size.height, "taehyeong's game");
 	// map_info.img = set_img(map_info.mlx);
 	// draw_map(map_info);
+
+	map_info.texture.img = mlx_new_image(map_info.mlx, map_info.dis_size.width, map_info.dis_size.height);
+	map_info.texture.data = (int *)mlx_get_data_addr(map_info.texture.img, &map_info.texture.bpp, &map_info.texture.size_line, &map_info.texture.endian);
+	printf("%d %d %d %d\n", (int)map_info.texture.img, map_info.texture.bpp, map_info.texture.size_line, map_info.texture.endian);
+
 	mlx_hook(map_info.win, KEY_PRESS, 0, &key_press, &map_info);
 	mlx_hook(map_info.win, KEY_EXIT, 0, &exit_game, &map_info);
+	mlx_loop_hook(map_info.mlx, &loop, &map_info);
 	mlx_loop(map_info.mlx);
 }
 

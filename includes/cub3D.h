@@ -24,6 +24,8 @@
 
 # define THETA	30
 # define PI		3.14159265359
+# define WALL_X	0
+# define WALL_Y 1
 
 typedef struct s_node {
 	int				*content;
@@ -36,10 +38,18 @@ typedef struct s_queue {
 }			t_queue;
 
 typedef struct s_texture {
+	int		**buffer;
 	char	*walls[4];
 	char	*item;
 	int		floor;
 	int		ceil;
+
+	int		*data;
+	void	*img;
+	int		*bpp;
+	int		*size_line;
+	int		*endian;
+
 }			t_texture;
 
 typedef struct s_dis_size {
@@ -60,10 +70,20 @@ typedef struct s_player {
 
 typedef struct s_ray {
 	double	camera_X;
-	double	rayDir_X;
-	double	rayDir_Y;
-	int		map_x;
-	int		map_y;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+
 
 
 }			t_ray;
@@ -147,4 +167,16 @@ void	rotate_r(t_map_info *map_info, t_player *player);
 //		parse_player
 
 void	parse_player(t_map_info *map_info);
+
+//		draw
+
+void	draw_updown(t_dis_size dis_size, t_texture *texture);
+void	draw_img(t_map_info *map_info, t_dis_size dis_size, t_texture *texture);
+
+//		ray
+
+void	ray_init(t_map_info *map_info, t_ray *ray, t_player *player);
+void	dda(t_map_info *map_info, t_ray *ray);
+
+
 #endif

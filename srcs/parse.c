@@ -10,6 +10,30 @@ int	skip_white_space(char *line)
 	return (i);
 }
 
+void	alloc_buffer(t_texture *texture, t_dis_size dis_size)
+{
+	int	width;
+	int	height;
+	int	i;
+	int	j;
+
+	width = dis_size.width;
+	height = dis_size.height;
+	texture->buffer = (int **)malloc(sizeof(int *) * height * width);
+	if (!texture->buffer)
+		exit_error("malloc erfror\n");
+	while (i < height)
+	{
+		texture->buffer[i] = (int *)malloc(sizeof(int) * width);
+		if (!texture->buffer[i])
+			exit_error("malloc efrror\n");
+		j = 0;
+		while (j < width)
+			texture->buffer[i][j++] = 0;
+		i++;
+	}
+}
+
 int	init_config(t_map_info *map_info, char *line, int idx)
 {
 	if (line[idx] == 'R')
@@ -94,6 +118,7 @@ void	init_map_info(t_map_info *map_info, int fd)
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
+	alloc_buffer(&map_info->texture, map_info->dis_size);
 	while (arr_line[0] == '\n') {
 		free(arr_line);
 		arr_line = get_next_line(fd);
