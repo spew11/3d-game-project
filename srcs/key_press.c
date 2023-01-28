@@ -24,13 +24,13 @@ int	exit_game(t_map_info *map_info)
 int	key_press(int keycode, t_map_info *map_info)
 {
 	if (keycode == KEY_W)
-		move_w(map_info);
+		move_w(map_info, &map_info->player);
 	else if (keycode == KEY_S)
-		move_s(map_info);
+		move_s(map_info, &map_info->player);
 	else if (keycode == KEY_A)
-		move_a(map_info);
+		move_a(map_info, &map_info->player);
 	else if (keycode == KEY_D)
-		move_d(map_info);
+		move_d(map_info, &map_info->player);
 	else if (keycode == KEY_L)
 		rotate_l(map_info, &map_info->player);
 	else if (keycode == KEY_R)

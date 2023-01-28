@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	rotate_l(t_map_info *map_info, t_player *player)
+void	rotate_r(t_map_info *map_info, t_player *player)
 {
 	double	old_x;
 	double	old_y;
@@ -27,7 +27,7 @@ void	rotate_l(t_map_info *map_info, t_player *player)
 	player->dir_y = -old_x * sin(-THETA*PI/180) + old_y * cos(-THETA*PI/180);
 }
 
-void	rotate_r(t_map_info *map_info, t_player *player)
+void	rotate_l(t_map_info *map_info, t_player *player)
 {
 	double	old_x;
 	double	old_y;

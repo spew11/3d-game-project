@@ -22,10 +22,12 @@
 # define SO		2
 # define NO		3
 
+# define STEP	0.5
 # define THETA	30
 # define PI		3.14159265359
 # define WALL_X	0
 # define WALL_Y 1
+# define WALLDIST	1.1
 
 typedef struct s_node {
 	int				*content;
@@ -154,10 +156,10 @@ int		exit_game(t_map_info *map_info);
 
 //		move
 
-void	move_w(t_map_info *map_info);
-void	move_a(t_map_info *map_info);
-void	move_s(t_map_info *map_info);
-void	move_d(t_map_info *map_info);
+void	move_w(t_map_info *map_info, t_player *player);
+void	move_a(t_map_info *map_info, t_player *player);
+void	move_s(t_map_info *map_info, t_player *player);
+void	move_d(t_map_info *map_info, t_player *player);
 
 //		rotate
 
