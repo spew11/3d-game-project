@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Imlx -c
-# CFLAGS = -Wall -Wextra -Werror -Imlx -c
+# CFLAGS = -Imlx -c
+CFLAGS = -Wall -Wextra -Werror -Imlx -c
 RM = rm -f
 AR = ar
 CRS = crs
@@ -23,7 +23,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		parse_config.c \
 		check_map.c \
 		queue.c \
-		key_press.c \
+		interrupt.c \
 		move.c \
 		rotate.c \
 		parse_player.c \

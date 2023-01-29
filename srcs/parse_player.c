@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_player.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 21:30:05 by taehykim          #+#    #+#             */
+/*   Updated: 2023/01/29 21:30:05 by taehykim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	parse_dir(t_player *player, char c)
@@ -48,12 +60,6 @@ void	parse_plane(t_player *player, char c)
 	}
 }
 
-void	parse_others(t_player *player)
-{
-	// player->rotation_speed = 0.05;
-	player->move_speed = 0.05;
-}
-
 void	parse_player(t_map_info *map_info)
 {
 	int		x;
@@ -65,5 +71,4 @@ void	parse_player(t_map_info *map_info)
 	c = map_info->map[y][x];
 	parse_dir(&map_info->player, c);
 	parse_plane(&map_info->player, c);
-	parse_others(&map_info->player);
 }

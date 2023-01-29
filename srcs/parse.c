@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 21:29:30 by taehykim          #+#    #+#             */
+/*   Updated: 2023/01/29 21:29:31 by taehykim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int	skip_white_space(char *line)
@@ -22,6 +34,7 @@ void	alloc_buffer(t_texture *texture, t_dis_size dis_size)
 	texture->buffer = (int **)malloc(sizeof(int *) * height * width);
 	if (!texture->buffer)
 		exit_error("malloc erfror\n");
+	i = 0;
 	while (i < height)
 	{
 		texture->buffer[i] = (int *)malloc(sizeof(int) * width);
@@ -74,8 +87,8 @@ void	parse_player_pos(t_map_info *map_info)
 			{
 				if (flag == 1)
 					exit_error("player must be one!\n");
-				map_info->player.pos_y = i;
-				map_info->player.pos_x = j;
+				map_info->player.pos_y = i + 0.5;
+				map_info->player.pos_x = j + 0.5;
 				flag = 1;
 			}
 			j++;
@@ -98,10 +111,18 @@ void	get_widths(t_map_info *map_info)
 	return ;
 }
 
+void	init_interrupt(t_interrupt *interrupt)
+{
+	interrupt->w = 0;
+	interrupt->s = 0;
+	interrupt->a = 0;
+	interrupt->d = 0;
+	interrupt->l = 0;
+	interrupt->r = 0;
+}
 
 void	init_map_info(t_map_info *map_info, int fd)
 {
-	int		i;
 	char	*arr_line;
 
 	arr_line = get_next_line(fd);
@@ -135,4 +156,6 @@ void	init_map_info(t_map_info *map_info, int fd)
 	get_widths(map_info);
 	parse_player_pos(map_info);
 	parse_player(map_info);
+	init_interrupt(&map_info->interrupt);
+	map_info->map[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = '0';
 }

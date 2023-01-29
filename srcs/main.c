@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:44:04 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/25 21:51:29 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:28:31 by taehykim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	loop(t_map_info *map_info)
 	draw_updown(map_info->dis_size, &map_info->texture);
 	raycast(map_info, map_info->dis_size);
 	draw_img(map_info, map_info->dis_size, &map_info->texture);
-	// key_press(keycode, t_map_info *map_info)
+	interrupt(map_info, map_info->interrupt);
 	return (0);
 }
 
@@ -43,22 +43,18 @@ int	main(int argc, char *argv[])
 	init_map_info(&map_info, fd);
 	map_info.mlx = mlx_init();
 	map_info.win = mlx_new_window(map_info.mlx, \
-	map_info.dis_size.width, map_info.dis_size.height, "taehyeong's game");
+	map_info.dis_size.width, map_info.dis_size.height, "cub3D");
 	parse_img(&map_info, &map_info.texture);
 	print_parsed(map_info);
-	printf("asdf\n");
-
 	check_map(&map_info);
-
-	// map_info.img = set_img(map_info.mlx);
-	// draw_map(map_info);
 
 	map_info.texture.img = mlx_new_image(map_info.mlx, map_info.dis_size.width, map_info.dis_size.height);
 	map_info.texture.data = (int *)mlx_get_data_addr(map_info.texture.img, &map_info.texture.bpp, &map_info.texture.size_line, &map_info.texture.endian);
 	printf("%d %d %d %d\n", (int)map_info.texture.img, map_info.texture.bpp, map_info.texture.size_line, map_info.texture.endian);
 
-	mlx_hook(map_info.win, KEY_PRESS, 0, &key_press, &map_info);
 	mlx_hook(map_info.win, KEY_EXIT, 0, &exit_game, &map_info);
+	mlx_hook(map_info.win, KEY_PRESS, 0, &key_press, &map_info);
+	mlx_hook(map_info.win, KEY_RELEASE, 0, &key_release, &map_info);
 	mlx_loop_hook(map_info.mlx, &loop, &map_info);
 	mlx_loop(map_info.mlx);
 }
@@ -126,8 +122,8 @@ void	print_map_info(t_map_info map_info)
 {
 	printf("\n");
 	printf("======== mlx, win =========\n");
-	printf("mlx = %d\n", map_info.mlx);
-	printf("win = %d\n", map_info.win);
+	printf("mlx = %ld\n", (long)map_info.mlx);
+	printf("win = %ld\n", (long)map_info.win);
 	printf("\n");
 }
 

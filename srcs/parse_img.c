@@ -1,21 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_img.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 21:29:55 by taehykim          #+#    #+#             */
+/*   Updated: 2023/01/29 21:30:14 by taehykim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int	img_init(t_texture *texture)
 {
 	int	i;
-	int	j;
 
-	// i = 0;
-	// while (i < TEX_W)
-	// {
-	// 	j = 0;
-	// 	while (j < SCWIDTH)
-	// 		img->buffer[i][j++] = 0;
-	// 	i++;
-	// }
-	// texture->walls = (int **)malloc(sizeof(int *) * 5);
-	// if (!img->arr_img)
-		// ft_exit("image_init malloc error");
 	i = 0;
 	while (i < 4)					//		WALLS IMAGE MALLOC
 	{
@@ -29,25 +29,6 @@ int	img_init(t_texture *texture)
 	ft_memset(texture->item_img, 0, (sizeof(int) * TEX_W * TEX_H));
 	return (0);
 }
-
-// void	fill_arr_img(t_map_info *map_info, int i)
-// {
-// 	int	y;
-// 	int	x;
-
-// 	y = 0;
-// 	while (y < info->img.h)
-// 	{
-// 		x = 0;
-// 		while (x < info->img.w)
-// 		{
-// 			info->img.arr_img[i][info->img.w * y + x] = \
-// 				info->img.data[info->img.h * y + x];
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	set_walls_img(t_texture *texture, int i)
 {
@@ -70,8 +51,7 @@ void	set_walls_img(t_texture *texture, int i)
 void	parse_img(t_map_info *map_info, t_texture *texture)
 {
 	int		i;
-	char	*tmp;
-	void	*img;
+	char	*wall_path;
 	int		w;
 	int		h;
 
@@ -80,48 +60,19 @@ void	parse_img(t_map_info *map_info, t_texture *texture)
 	while (i < 4)
 	{
 		if (i == NO)
-			tmp = texture->walls[i];
+			wall_path = texture->walls[i];
 		else if (i == WE)
-			tmp = texture->walls[i];
+			wall_path = texture->walls[i];
 		else if (i == SO)
-			tmp = texture->walls[i];
+			wall_path = texture->walls[i];
 		else
-			tmp = texture->walls[i];
-		texture->img = mlx_xpm_file_to_image(map_info->mlx, tmp, &w, &h);
+			wall_path = texture->walls[i];
+		texture->img = mlx_xpm_file_to_image(map_info->mlx, wall_path, &w, &h);
+		if (w != TEX_W || h != TEX_H)
+			exit_error("weird texture size\n");
 		texture->data = (int *)mlx_get_data_addr(texture->img, &texture->bpp, &texture->size_line, &texture->endian);
 		set_walls_img(texture, i);
 		mlx_destroy_image(map_info->mlx, texture->img);
 		i++;
 	}
 }
-
-// void	image_load(t_info *info)
-// {
-// 	char	*path;
-// 	int		i;
-
-// 	i = 1;
-// 	while (i < 5)
-// 	{
-// 		if (i == E)
-// 			path = info->map.ea_path;
-// 		else if (i == W)
-// 			path = info->map.we_path;
-// 		else if (i == S)
-// 			path = info->map.so_path;
-// 		else
-// 			path = info->map.no_path;
-// 		printf("%d\n", info->img.h);
-// 		info->img.img = \
-// 			mlx_xpm_file_to_image(info->mlx, path, &info->img.w, &info->img.h);
-// 		printf("%d\n", info->img.h);
-// 		if (info->img.w != TEXWIDTH || info->img.h != TEXHEIGHT
-// 			|| info->img.img == NULL)
-// 			ft_exit("image_load xpm file error");
-// 		info->img.data = (int *)mlx_get_data_addr(info->img.img, \
-// 					&info->img.bpp, &info->img.line_size, &info->img.endian);
-// 		fill_arr_img(info, i);
-// 		mlx_destroy_image(info->mlx, info->img.img);
-// 		i++;
-// 	}
-// }

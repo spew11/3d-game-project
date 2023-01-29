@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 21:29:15 by taehykim          #+#    #+#             */
+/*   Updated: 2023/01/29 21:29:16 by taehykim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	dda(t_map_info *map_info, t_ray *ray)
@@ -11,13 +23,13 @@ void	dda(t_map_info *map_info, t_ray *ray)
 		{
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
-			ray->side = WALL_X; // 0
+			ray->side = WALL_X;
 		}
 		else
 		{
 			ray->sideDistY += ray->deltaDistY;
 			ray->mapY += ray->stepY;
-			ray->side = WALL_Y; // 1
+			ray->side = WALL_Y;
 		}
 		if (map_info->map[ray->mapY][ray->mapX] == '1')
 			hit = 1;
@@ -57,7 +69,7 @@ void	draw_wall_2(t_ray *ray, t_texture *texture, int x)
 	}
 }
 
-void	draw_wall(t_ray *ray, t_texture *texture, t_player *player, t_dis_size dis_size)
+void	draw_wall(t_ray *ray, t_player *player, t_dis_size dis_size)
 {
 	double	wall;
 
@@ -91,7 +103,7 @@ void	raycast(t_map_info *map_info, t_dis_size dis_size)
 	{
 		ray_init(&map_info->ray, &map_info->player, map_info->dis_size, x);
 		dda(map_info, &map_info->ray);
-		draw_wall(&map_info->ray, &map_info->texture, &map_info->player, map_info->dis_size);
+		draw_wall(&map_info->ray, &map_info->player, map_info->dis_size);
 		draw_wall_2(&map_info->ray, &map_info->texture, x);
 		x++;
 	}

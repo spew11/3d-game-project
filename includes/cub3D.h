@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 21:25:29 by taehykim          #+#    #+#             */
+/*   Updated: 2023/01/29 21:25:31 by taehykim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -22,14 +34,14 @@
 # define SO		2
 # define NO		3
 
-# define STEP	0.5
-# define THETA	30
-# define PI		3.14159265359
-# define WALL_X	0
-# define WALL_Y 1
+# define STEP		0.1
+# define THETA		5
+# define PI			3.14159265359
+# define WALL_X		0
+# define WALL_Y 	1
 # define WALLDIST	1.1
-# define TEX_W	64
-# define TEX_H	64
+# define TEX_W		64
+# define TEX_H		64
 
 typedef struct s_node {
 	int				*content;
@@ -41,14 +53,14 @@ typedef struct s_queue {
 	t_node	*back;
 }			t_queue;
 
-typedef struct key_interrupt {
+typedef struct s_interrupt {
 	int	w;
 	int	a;
 	int	s;
 	int	d;
 	int	l;
 	int	r;
-}
+}		t_interrupt;
 
 typedef struct s_texture {
 	int		**buffer;
@@ -58,7 +70,6 @@ typedef struct s_texture {
 	int		*item_img;
 	int		floor;
 	int		ceil;
-
 	int		*data;
 	void	*img;
 	int		bpp;
@@ -78,7 +89,6 @@ typedef struct s_player {
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	move_speed;
 
 }			t_player;
 
@@ -112,6 +122,7 @@ typedef struct s_map_info {
 	t_texture	texture;
 	t_player	player;
 	t_ray		ray;
+	t_interrupt	interrupt;
 	void		*mlx;
 	void		*win;
 	int			*widths;
@@ -168,9 +179,11 @@ void	q_append(t_queue *q, int *e);
 int*	q_pop(t_queue *q);
 void	q_clear(t_queue *q);
 
-//		key_press
+//		interrupt
 
+int		interrupt(t_map_info *map_info, t_interrupt interrupt);
 int		key_press(int keycode, t_map_info *map_info);
+int		key_release(int keycode, t_map_info *map_info);
 int		exit_game(t_map_info *map_info);
 
 //		move
@@ -182,8 +195,8 @@ void	move_d(t_map_info *map_info, t_player *player);
 
 //		rotate
 
-void	rotate_l(t_map_info *map_info, t_player *player);
-void	rotate_r(t_map_info *map_info, t_player *player);
+void	rotate_l(t_player *player);
+void	rotate_r(t_player *player);
 
 //		parse_player
 

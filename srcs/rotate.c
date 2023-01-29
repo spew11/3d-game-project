@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:09:56 by taehykim          #+#    #+#             */
-/*   Updated: 2022/08/23 18:09:57 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:29:38 by taehykim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	rotate_r(t_map_info *map_info, t_player *player)
+void	rotate_r(t_player *player)
 {
 	double	old_x;
 	double	old_y;
@@ -27,7 +27,7 @@ void	rotate_r(t_map_info *map_info, t_player *player)
 	player->dir_y = -old_x * sin(-THETA*PI/180) + old_y * cos(-THETA*PI/180);
 }
 
-void	rotate_l(t_map_info *map_info, t_player *player)
+void	rotate_l(t_player *player)
 {
 	double	old_x;
 	double	old_y;
