@@ -30,6 +30,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		ray_init.c \
 		draw.c \
 		raycast.c \
+		parse_img.c \
 		)
 
 OBJS = $(SRCS:.c=.o)

@@ -28,6 +28,8 @@
 # define WALL_X	0
 # define WALL_Y 1
 # define WALLDIST	1.1
+# define TEX_W	64
+# define TEX_H	64
 
 typedef struct s_node {
 	int				*content;
@@ -39,19 +41,29 @@ typedef struct s_queue {
 	t_node	*back;
 }			t_queue;
 
+typedef struct key_interrupt {
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	l;
+	int	r;
+}
+
 typedef struct s_texture {
 	int		**buffer;
 	char	*walls[4];
+	int		*walls_img[4];
 	char	*item;
+	int		*item_img;
 	int		floor;
 	int		ceil;
 
 	int		*data;
 	void	*img;
-	int		*bpp;
-	int		*size_line;
-	int		*endian;
-
+	int		bpp;
+	int		size_line;
+	int		endian;
 }			t_texture;
 
 typedef struct s_dis_size {
@@ -85,8 +97,13 @@ typedef struct s_ray {
 	int		stepY;
 	int		hit;
 	int		side;
-
-
+	int		start;
+	int		end;
+	int		line;
+	int		tex_x;
+	int		tex_y;
+	double	ratio;
+	double	texpos;
 
 }			t_ray;
 
@@ -134,6 +151,7 @@ void	free_arr(char *arr);
 
 int		is_space(char c);
 int		count_arr_2(char **arr);
+void	*ft_memset(void *s, int c, size_t n);
 
 //		parse_config
 void	parse_dis_size(t_map_info *map_info, char *line, int idx);
@@ -185,5 +203,8 @@ void	ray_init(t_ray *ray, t_player *player, t_dis_size dis_size, int x);
 void	dda(t_map_info *map_info, t_ray *ray);
 void	raycast(t_map_info *map_info, t_dis_size dis_size);
 
+//		parse_img
+
+void	parse_img(t_map_info *map_info, t_texture *texture);
 
 #endif

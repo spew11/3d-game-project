@@ -21,11 +21,13 @@ void	print_dis_size(t_map_info map_info);
 void	print_map(t_map_info map_info);
 void	print_player(t_map_info map_info);
 
-void	loop(t_map_info *map_info)
+int	loop(t_map_info *map_info)
 {
 	draw_updown(map_info->dis_size, &map_info->texture);
+	raycast(map_info, map_info->dis_size);
 	draw_img(map_info, map_info->dis_size, &map_info->texture);
-	// raycast(map_info, map_info->dis_size);
+	// key_press(keycode, t_map_info *map_info)
+	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -39,14 +41,15 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd);
 	init_map_info(&map_info, fd);
-
-	print_parsed(map_info);
-
-	check_map(&map_info);
-
 	map_info.mlx = mlx_init();
 	map_info.win = mlx_new_window(map_info.mlx, \
 	map_info.dis_size.width, map_info.dis_size.height, "taehyeong's game");
+	parse_img(&map_info, &map_info.texture);
+	print_parsed(map_info);
+	printf("asdf\n");
+
+	check_map(&map_info);
+
 	// map_info.img = set_img(map_info.mlx);
 	// draw_map(map_info);
 
@@ -123,8 +126,8 @@ void	print_map_info(t_map_info map_info)
 {
 	printf("\n");
 	printf("======== mlx, win =========\n");
-	printf("mlx = %lf\n", map_info.mlx);
-	printf("win = %lf\n", map_info.win);
+	printf("mlx = %d\n", map_info.mlx);
+	printf("win = %d\n", map_info.win);
 	printf("\n");
 }
 

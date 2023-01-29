@@ -98,6 +98,7 @@ void	get_widths(t_map_info *map_info)
 	return ;
 }
 
+
 void	init_map_info(t_map_info *map_info, int fd)
 {
 	int		i;
