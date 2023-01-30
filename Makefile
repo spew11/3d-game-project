@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = cc
-# CFLAGS = -Imlx -c
-CFLAGS = -Wall -Wextra -Werror -Imlx -c
+CFLAGS = -Imlx -c
+# CFLAGS = -Wall -Wextra -Werror -Imlx -c
 RM = rm -f
 AR = ar
 CRS = crs

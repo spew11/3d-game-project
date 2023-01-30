@@ -16,8 +16,8 @@ void	ray_init_2(t_ray *ray, t_player *player)
 {
 	if (ray->rayDirX < 0)
 	{
-    	ray->stepX = -1;
-    	ray->sideDistX = (player->pos_x - ray->mapX) * ray->deltaDistX;
+		ray->stepX = -1;
+		ray->sideDistX = (player->pos_x - ray->mapX) * ray->deltaDistX;
 	}
 	else
 	{
@@ -26,7 +26,7 @@ void	ray_init_2(t_ray *ray, t_player *player)
 	}
 	if (ray->rayDirY < 0)
 	{
-    	ray->stepY = -1;
+		ray->stepY = -1;
 		ray->sideDistY = (player->pos_y - ray->mapY) * ray->deltaDistY;
 	}
 	else

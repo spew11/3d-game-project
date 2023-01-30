@@ -30,6 +30,7 @@ void	parse_dis_size(t_map_info *map_info, char *line, int idx)
 void	parse_walls(t_texture *texture, int wall_type, char *line, int idx)
 {
 	char	**temp;
+
 	temp = ft_split(line + idx, ' ');
 	if (count_arr_2(temp) != 2)
 		exit_error("incorrect config\n");
@@ -37,7 +38,7 @@ void	parse_walls(t_texture *texture, int wall_type, char *line, int idx)
 	free_arr_2(temp);
 }
 
-void	parse_F(t_map_info *map_info, char *line, int idx)
+void	parse_f(t_map_info *map_info, char *line, int idx)
 {
 	int		i;
 	char	**temp;
@@ -65,7 +66,7 @@ void	parse_F(t_map_info *map_info, char *line, int idx)
 	free_arr_2(temp2);
 }
 
-void	parse_C(t_map_info *map_info, char *line, int idx)
+void	parse_c(t_map_info *map_info, char *line, int idx)
 {
 	int		i;
 	char	**temp;
@@ -93,7 +94,7 @@ void	parse_C(t_map_info *map_info, char *line, int idx)
 	free_arr_2(temp2);
 }
 
-void	parse_S(t_map_info *map_info, char *line, int idx)
+void	parse_s(t_map_info *map_info, char *line, int idx)
 {
 	char	**temp;
 

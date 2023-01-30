@@ -41,6 +41,7 @@ static int	count(char const *s, char c)
 
 static void	get_length(int *size, int *k, char const *s, char c)
 {
+	*size = 0;
 	if (!ft_strncmp(&s[*k], "\n\n", 2))
 	{
 		*size += 1;
@@ -56,20 +57,11 @@ static void	get_length(int *size, int *k, char const *s, char c)
 	}
 }
 
-static void	ft_free(char **strs, int i)
+static void	ft_malloc(char **strs, int size, int i)
 {
-	int	index;
-
-	index = i - 1;
-	while (index >= 0)
-	{
-		free(strs[index]);
-		strs[index] = NULL;
-		--index;
-	}
-	free(strs);
-	strs = 0;
-	return ;
+	strs[i] = (char *)malloc(sizeof(char) * (size + 1));
+	if (strs[i] == 0)
+		ft_free_split(strs, i);
 }
 
 static void	go_split(char **strs, char const *s, char c, int i)
@@ -81,16 +73,8 @@ static void	go_split(char **strs, char const *s, char c, int i)
 	k = 0;
 	while (s[k])
 	{
-		size = 0;
 		get_length(&size, &k, s, c);
-		if (!size)
-			continue ;
-		strs[i] = (char *)malloc(sizeof(char) * (size + 1));
-		if (strs[i] == 0)
-		{
-			ft_free(strs, i);
-			return ;
-		}
+		ft_malloc(strs, size, i);
 		j = 0;
 		k -= size;
 		while (j < size)

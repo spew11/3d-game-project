@@ -19,12 +19,16 @@ void	rotate_r(t_player *player)
 
 	old_x = player->plane_x;
 	old_y = player->plane_y;
-	player->plane_x = old_x * cos(-THETA*PI/180) + old_y * sin(-THETA*PI/180);
-	player->plane_y = -old_x * sin(-THETA*PI/180) + old_y * cos(-THETA*PI/180);
+	player->plane_x = old_x * cos(-THETA * PI / \
+	180) + old_y * sin(-THETA * PI / 180);
+	player->plane_y = -old_x * sin(-THETA * PI / \
+	180) + old_y * cos(-THETA * PI / 180);
 	old_x = player->dir_x;
 	old_y = player->dir_y;
-	player->dir_x = old_x * cos(-THETA*PI/180) + old_y * sin(-THETA*PI/180);
-	player->dir_y = -old_x * sin(-THETA*PI/180) + old_y * cos(-THETA*PI/180);
+	player->dir_x = old_x * cos(-THETA * PI / \
+	180) + old_y * sin(-THETA * PI / 180);
+	player->dir_y = -old_x * sin(-THETA * PI / \
+	180) + old_y * cos(-THETA * PI / 180);
 }
 
 void	rotate_l(t_player *player)
@@ -34,10 +38,14 @@ void	rotate_l(t_player *player)
 
 	old_x = player->plane_x;
 	old_y = player->plane_y;
-	player->plane_x = old_x * cos(THETA*PI/180) + old_y * sin(THETA*PI/180);
-	player->plane_y = -old_x * sin(THETA*PI/180) + old_y * cos(THETA*PI/180);
+	player->plane_x = old_x * cos(THETA * PI / \
+	180) + old_y * sin(THETA * PI / 180);
+	player->plane_y = -old_x * sin(THETA * PI / \
+	180) + old_y * cos(THETA * PI / 180);
 	old_x = player->dir_x;
 	old_y = player->dir_y;
-	player->dir_x = old_x * cos(THETA*PI/180) + old_y * sin(THETA*PI/180);
-	player->dir_y = -old_x * sin(THETA*PI/180) + old_y * cos(THETA*PI/180);
+	player->dir_x = old_x * cos(THETA * PI / \
+	180) + old_y * sin(THETA * PI / 180);
+	player->dir_y = -old_x * sin(THETA * PI / \
+	180) + old_y * cos(THETA * PI / 180);
 }

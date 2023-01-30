@@ -25,7 +25,8 @@ int	exit_game(t_map_info *map_info)
 int	interrupt(t_map_info *map_info, t_interrupt interrupt)
 {
 	printf("%d\n", interrupt.w);
-	printf("plane_x=%f plane_y=%f x=%f y=%f\n", map_info->player.plane_x, map_info->player.plane_y, map_info->player.pos_x, map_info->player.pos_y);
+	printf("plane_x=%f plane_y=%f x=%f y=%f\n", map_info->player.plane_x, \
+			map_info->player.plane_y, map_info->player.pos_x, map_info->player.pos_y);
 	if (interrupt.w && !interrupt.s)
 		move_w(map_info, &map_info->player);
 	if (interrupt.s && !interrupt.w)

@@ -43,7 +43,7 @@ static void	get_length(int *size, int *k, char const *s, char c)
 	}
 }
 
-static void	ft_free(char **strs, int i)
+void	ft_free_split(char **strs, int i)
 {
 	int	index;
 
@@ -56,7 +56,7 @@ static void	ft_free(char **strs, int i)
 	}
 	free(strs);
 	strs = 0;
-	return ;
+	exit_error("malloc error\n");
 }
 
 static void	go_split(char **strs, char const *s, char c, int i)
@@ -74,10 +74,7 @@ static void	go_split(char **strs, char const *s, char c, int i)
 			continue ;
 		strs[i] = (char *)malloc(sizeof(char) * (size + 1));
 		if (strs[i] == 0)
-		{
-			ft_free(strs, i);
-			exit_error("malloc error\n");
-		}
+			ft_free_split(strs, i);
 		j = 0;
 		k -= size;
 		while (j < size)

@@ -165,11 +165,11 @@ int		count_arr_2(char **arr);
 void	*ft_memset(void *s, int c, size_t n);
 
 //		parse_config
+
 void	parse_dis_size(t_map_info *map_info, char *line, int idx);
 void	parse_walls(t_texture *texture, int wall_type, char *line, int idx);
-void	parse_F(t_map_info *map_info, char *line, int idx);
-void	parse_C(t_map_info *map_info, char *line, int idx);
-void	parse_S(t_map_info *map_info, char *line, int idx);
+void	parse_f(t_map_info *map_info, char *line, int idx);
+void	parse_c(t_map_info *map_info, char *line, int idx);
 
 //		check_map
 
@@ -219,5 +219,9 @@ void	raycast(t_map_info *map_info, t_dis_size dis_size);
 //		parse_img
 
 void	parse_img(t_map_info *map_info, t_texture *texture);
+
+//		ft_split
+
+void	ft_free_split(char **strs, int i);
 
 #endif

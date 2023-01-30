@@ -91,7 +91,8 @@ void	draw_wall(t_ray *ray, t_player *player, t_dis_size dis_size)
 	if (ray->end >= dis_size.height)
 		ray->end = dis_size.height;
 	ray->ratio = 1.0 * TEX_H / ray->line;
-	ray->texpos = (ray->start - dis_size.height / 2 + ray->line / 2) * ray->ratio;
+	ray->texpos = (ray->start - dis_size.height / \
+	2 + ray->line / 2) * ray->ratio;
 }
 
 void	raycast(t_map_info *map_info, t_dis_size dis_size)

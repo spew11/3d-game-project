@@ -17,7 +17,7 @@ int	img_init(t_texture *texture)
 	int	i;
 
 	i = 0;
-	while (i < 4)					//		WALLS IMAGE MALLOC
+	while (i < 4)
 	{
 		texture->walls_img[i] = (int *)malloc(sizeof(int) * TEX_W * TEX_H);
 		if (!texture->walls_img[i])
@@ -34,7 +34,7 @@ void	set_walls_img(t_texture *texture, int i)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < TEX_H)
 	{
@@ -70,7 +70,8 @@ void	parse_img(t_map_info *map_info, t_texture *texture)
 		texture->img = mlx_xpm_file_to_image(map_info->mlx, wall_path, &w, &h);
 		if (w != TEX_W || h != TEX_H)
 			exit_error("weird texture size\n");
-		texture->data = (int *)mlx_get_data_addr(texture->img, &texture->bpp, &texture->size_line, &texture->endian);
+		texture->data = (int *)mlx_get_data_addr(texture->img, \
+		&texture->bpp, &texture->size_line, &texture->endian);
 		set_walls_img(texture, i);
 		mlx_destroy_image(map_info->mlx, texture->img);
 		i++;

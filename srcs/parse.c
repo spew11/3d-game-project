@@ -59,12 +59,10 @@ int	init_config(t_map_info *map_info, char *line, int idx)
 		parse_walls(&map_info->texture, SO, line, idx);
 	else if (!ft_strncmp(line + idx, "NO", 2))
 		parse_walls(&map_info->texture, NO, line, idx);
-	else if (line[idx] == 'S')
-		parse_S(map_info, line, idx);
 	else if (line[idx] == 'F')
-		parse_F(map_info, line, idx);
+		parse_f(map_info, line, idx);
 	else if (line[idx] == 'C')
-		parse_C(map_info, line, idx);
+		parse_c(map_info, line, idx);
 	else
 		return (0);
 	return (1);
@@ -129,7 +127,7 @@ void	init_map_info(t_map_info *map_info, int fd)
 	if (!arr_line)
 		exit_error("Empty map !\n");
 	int config_cnt = 0;
-	while (arr_line && config_cnt < 8)
+	while (arr_line && config_cnt < 7)
 	{
 		int idx;
 		idx = skip_white_space(arr_line);
