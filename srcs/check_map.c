@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:28:22 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:28:23 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/01/31 21:06:39 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ void check_wall(t_map_info *map_info)
 			int nx = x + dx[i];
 			if (is_valid(map_info, ny, nx))
 			{
-				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == '0' || map_info->map[ny][nx] == '2'))
+				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == '0'))
 				{
 					q_append(q, new_arr(ny, nx));
 					visited[ny][nx] = 1;
 				}
-				else if (visited[ny][nx] == 0  && map_info->map[ny][nx] == ' ') {
+				else if (visited[ny][nx] == 0  && map_info->map[ny][nx] == ' ')
+				{
 					exit_error("map must be surrounded by wall\n");
 				}
 			}
@@ -97,8 +98,8 @@ void	check_map(t_map_info *map_info)
 	for (int i = 0; i < map_info->height; i++) {
 		for (int j = 0; j < map_info->widths[i]; j++) {
 			if (map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
-				map_info->map[i][j] != '2' && map_info->map[i][j] != 'N' &&
-				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'W' &&
+				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'N' &&
+				map_info->map[i][j] != 'W' &&
 				map_info->map[i][j] != 'E' && map_info->map[i][j] != ' ')
 			{
 				exit_error("invalid map element\n");

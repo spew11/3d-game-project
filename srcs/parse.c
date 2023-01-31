@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:30 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:29:31 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:46:39 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ void	init_map_info(t_map_info *map_info, int fd)
 		}
 		free(arr_line);
 		arr_line = get_next_line(fd);
+	}
+	if (config_cnt != 7) {
+		exit_error("map must have 7 configures\n");
 	}
 	alloc_buffer(&map_info->texture, map_info->dis_size);
 	while (arr_line[0] == '\n') {

@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:55 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:30:14 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:22:30 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	parse_img(t_map_info *map_info, t_texture *texture)
 		else
 			wall_path = texture->walls[i];
 		texture->img = mlx_xpm_file_to_image(map_info->mlx, wall_path, &w, &h);
+		if (!texture->img)
+			exit_error("image error\n");
 		if (w != TEX_W || h != TEX_H)
 			exit_error("weird texture size\n");
 		texture->data = (int *)mlx_get_data_addr(texture->img, \
