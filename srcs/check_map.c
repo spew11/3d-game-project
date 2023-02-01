@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:28:22 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/31 21:06:39 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:36:21 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,81 +30,92 @@ void	check_texture(t_map_info *map_info)
 	return ;
 }
 
-int is_valid(t_map_info *map_info, int y, int x)
+void	search_adjoin(t_map_info *map_info, t_bfs *bfs, int y, int x)
 {
-	if (y >= 0 && y < map_info->height && x >= 0) {
-		if (x < map_info->widths[y]) {
-			return (1);
+	int	i;
+	int	ny;
+	int	nx;
+
+	i = 0;
+	while (i < 4)
+	{
+		ny = y + bfs->dy[i];
+		nx = x + bfs->dx[i];
+		if (is_valid(map_info, ny, nx))
+		{
+			if (bfs->visited[ny][nx] == 0 && (map_info->map[ny][nx] == '0'))
+			{
+				q_append(bfs->q, new_arr(ny, nx));
+				bfs->visited[ny][nx] = 1;
+			}
+			else if (bfs->visited[ny][nx] == 0 && map_info->map[ny][nx] == ' ')
+				exit_error("map must be surrounded by wall\n");
 		}
+		else
+			exit_error("map must be surrounded by wall\n");
+		i++;
 	}
-	return (0);
+	return ;
 }
 
-
-void check_wall(t_map_info *map_info)
+void	check_wall(t_map_info *map_info)
 {
-	int dy[] = {-1, 1, 0, 0};
-	int dx[] = {0, 0, -1, 1};
-	int **visited = (int **)malloc(sizeof(int *) * (map_info->height));
-	if (!visited)
+	t_bfs	bfs;
+	int		*now;
+	int		y;
+	int		x;
+
+	bfs.q = (t_queue *)malloc(sizeof(t_queue) * 1);
+	if (!bfs.q)
 		exit_error("malloc failed\n");
-	for (int i = 0; i < map_info->height; i++)
+	bfs.q->front = 0;
+	bfs.visited = (int **)malloc(sizeof(int *) * (map_info->height));
+	if (!bfs.visited)
+		exit_error("malloc failed\n");
+	init_visited(map_info, bfs.visited);
+	init_dydx(bfs.dy, bfs.dx);
+	q_append(bfs.q, new_arr(map_info->player.pos_y, map_info->player.pos_x));
+	bfs.visited[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = 1;
+	while (!q_empty(bfs.q))
 	{
-		visited[i] = (int *)malloc(sizeof(int) * map_info->widths[i]);
-		for (int j = 0; j < map_info->widths[i]; j++)
-		{
-			visited[i][j] = 0;
-		}
+		now = q_pop(bfs.q);
+		y = now[0];
+		x = now[1];
+		search_adjoin(map_info, &bfs, y, x);
 	}
-	t_queue	*q = (t_queue *)malloc(sizeof(t_queue) * 1);
-	q->front = 0;
-	q_append(q, new_arr(map_info->player.pos_y, map_info->player.pos_x));
-	visited[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = 1;
-	while (!q_empty(q))
+	free_double_int(bfs.visited, map_info->height);
+	q_clear(bfs.q);
+}
+
+void	check_map_argc(t_map_info *map_info)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map_info->height)
 	{
-		int *now = q_pop(q);
-		int y = now[0];
-		int x = now[1];
-		for (int i = 0; i < 4; i++)
+		j = 0;
+		while (j < map_info->widths[i])
 		{
-			int ny = y + dy[i];
-			int nx = x + dx[i];
-			if (is_valid(map_info, ny, nx))
+			if (map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
+				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'N' &&
+				map_info->map[i][j] != 'W' && map_info->map[i][j] != 'E' &&
+				map_info->map[i][j] != ' ')
 			{
-				if (visited[ny][nx] == 0 && (map_info->map[ny][nx] == '0'))
-				{
-					q_append(q, new_arr(ny, nx));
-					visited[ny][nx] = 1;
-				}
-				else if (visited[ny][nx] == 0  && map_info->map[ny][nx] == ' ')
-				{
-					exit_error("map must be surrounded by wall\n");
-				}
+				exit_error("invalid map element\n");
 			}
-			else
-			{
-				exit_error("map must be surrounded by wall\n");
-			}
+			j++;
 		}
+		i++;
 	}
 	return ;
 }
 
 void	check_map(t_map_info *map_info)
 {
-	//	check map_info error
 	check_texture(map_info);
-	//다른 숫자 있는지 체크하기
-	for (int i = 0; i < map_info->height; i++) {
-		for (int j = 0; j < map_info->widths[i]; j++) {
-			if (map_info->map[i][j] != '0' && map_info->map[i][j] != '1' &&
-				map_info->map[i][j] != 'S' && map_info->map[i][j] != 'N' &&
-				map_info->map[i][j] != 'W' &&
-				map_info->map[i][j] != 'E' && map_info->map[i][j] != ' ')
-			{
-				exit_error("invalid map element\n");
-			}
-		}
-	}
+	check_map_argc(map_info);
 	check_wall(map_info);
+	return ;
 }

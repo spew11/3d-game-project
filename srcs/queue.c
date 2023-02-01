@@ -6,19 +6,19 @@
 /*   By: eunjilee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 20:15:46 by eunjilee          #+#    #+#             */
-/*   Updated: 2023/01/18 22:45:56 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:43:55 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
 
-int q_empty(t_queue *q)
+int	q_empty(t_queue *q)
 {
 	if (!q->front)
 		return (1);
 	return (0);
 }
 
-void q_append(t_queue *q, int *e)
+void	q_append(t_queue *q, int *e)
 {
 	if (q_empty(q))
 	{
@@ -41,18 +41,22 @@ void q_append(t_queue *q, int *e)
 	return ;
 }
 
-int *q_pop(t_queue *q)
+int	*q_pop(t_queue *q)
 {
-	t_node *tmp = q->front;
-	int *e = q->front->content;
+	t_node	*tmp;
+	int		*e;
+
+	tmp = q->front;
+	e = q->front->content;
 	q->front = q->front->next;
 	free(tmp);
-	return e;
+	return (e);
 }
 
-void q_clear(t_queue *q)
+void	q_clear(t_queue *q)
 {
-	t_node *tmp;
+	t_node	*tmp;
+
 	while (q->front)
 	{
 		tmp = q->front;

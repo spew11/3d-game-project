@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:30:05 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:30:05 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:39:15 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	parse_player(t_map_info *map_info)
 	char	c;
 
 	x = (int)map_info->player.pos_x;
-	y = (int)map_info->player.pos_y;	
+	y = (int)map_info->player.pos_y;
 	c = map_info->map[y][x];
 	parse_dir(&map_info->player, c);
 	parse_plane(&map_info->player, c);

@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:43:41 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:27:57 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:42:15 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	exit_game(t_map_info *map_info)
 {
 	printf("close\n");
 	mlx_destroy_window(map_info->mlx, map_info->win);
-	// ft_free_final(map_info);
 	exit(0);
 }
 
@@ -58,7 +57,6 @@ int	key_press(int keycode, t_map_info *map_info)
 		map_info->interrupt.r = 1;
 	if (keycode == KEY_ESC)
 		exit_game(map_info);
-	// print_player_k(*map_info);
 	return (0);
 }
 

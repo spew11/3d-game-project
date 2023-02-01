@@ -31,3 +31,17 @@ void	free_arr(char *arr)
 	if (arr)
 		free(arr);
 }
+
+void	free_double_int(int **arr, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return ;
+}

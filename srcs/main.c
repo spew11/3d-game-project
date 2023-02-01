@@ -6,12 +6,15 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:44:04 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/31 20:47:19 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:38:49 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+void	find_leak()
+{
+	system("leaks -list cub3D");
+}
 void	print_parsed(t_map_info map_info);
 void	print_map_info(t_map_info map_info);
 void	print_map_size(t_map_info map_info);
@@ -34,18 +37,16 @@ int	main(int argc, char *argv[])
 {
 	t_map_info	map_info;
 	int			fd;
-	/*floor ceiling init*/
-	map_info.texture.floor = -1;
-	map_info.texture.ceil = -1;
-	check_arg(argc, argv);
-	fd = open(argv[1], O_RDONLY);
-	check_fd(fd);
+	atexit(find_leak);
+	check_arg(argc, argv); //ok
+	fd = open(argv[1], O_RDONLY); //ok
+	check_fd(fd); //ok
 	init_map_info(&map_info, fd);
 	map_info.mlx = mlx_init();
 	map_info.win = mlx_new_window(map_info.mlx, \
 	map_info.dis_size.width, map_info.dis_size.height, "cub3D");
 	parse_img(&map_info, &map_info.texture);
-	print_parsed(map_info);
+	//print_parsed(map_info);
 	check_map(&map_info);
 
 	map_info.texture.img = mlx_new_image(map_info.mlx, map_info.dis_size.width, map_info.dis_size.height);

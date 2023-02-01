@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:25:29 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:25:31 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:13:46 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define TEX_W		64
 # define TEX_H		64
 
+
 typedef struct s_node {
 	int				*content;
 	struct s_node	*next;
@@ -52,6 +53,13 @@ typedef struct s_queue {
 	t_node	*front;
 	t_node	*back;
 }			t_queue;
+
+typedef struct s_bfs {
+	t_queue	*q;
+	int		**visited;
+	int	dy[4];
+	int	dx[4];
+}			t_bfs;
 
 typedef struct s_interrupt {
 	int	w;
@@ -129,7 +137,9 @@ typedef struct s_map_info {
 	int			height;
 	char		**map;
 	char		*map_line;
+	int			config_cnt;
 }			t_map_info;
+
 
 //		utils
 
@@ -157,6 +167,7 @@ int		ft_atoi(const char *str);
 
 void	free_arr_2(char **arr);
 void	free_arr(char *arr);
+void	free_double_int(int **arr, int size);
 
 //		parse_utils
 
@@ -224,4 +235,15 @@ void	parse_img(t_map_info *map_info, t_texture *texture);
 
 void	ft_free_split(char **strs, int i);
 
+//		bfs_utils
+
+int	is_valid(t_map_info *map_info, int y, int x);
+void	init_visited(t_map_info *map_info, int **visited);
+void	init_dydx(int *dy, int *dx);
+
+//		parse2
+int	init_config(t_map_info *map_info, char *line, int idx);
+void	parse_player_pos(t_map_info *map_info);
+void	get_widths(t_map_info *map_info);
+void	init_interrupt(t_interrupt *interrupt);
 #endif

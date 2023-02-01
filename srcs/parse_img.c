@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:55 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/31 20:22:30 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:37:25 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ void	set_walls_img(t_texture *texture, int i)
 	}
 }
 
+void	parse_img2(t_texture *texture, int i, char **wall_path)
+{
+	if (i == NO)
+		*wall_path = texture->walls[i];
+	else if (i == WE)
+		*wall_path = texture->walls[i];
+	else if (i == SO)
+		*wall_path = texture->walls[i];
+	else if (i == EA)
+		*wall_path = texture->walls[i];
+	return ;
+}
+
 void	parse_img(t_map_info *map_info, t_texture *texture)
 {
 	int		i;
@@ -59,14 +72,7 @@ void	parse_img(t_map_info *map_info, t_texture *texture)
 	i = 0;
 	while (i < 4)
 	{
-		if (i == NO)
-			wall_path = texture->walls[i];
-		else if (i == WE)
-			wall_path = texture->walls[i];
-		else if (i == SO)
-			wall_path = texture->walls[i];
-		else
-			wall_path = texture->walls[i];
+		parse_img2(texture, i, &wall_path);
 		texture->img = mlx_xpm_file_to_image(map_info->mlx, wall_path, &w, &h);
 		if (!texture->img)
 			exit_error("image error\n");

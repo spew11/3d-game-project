@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:30 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/31 20:46:39 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:20:09 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	alloc_buffer(t_texture *texture, t_dis_size dis_size)
 	height = dis_size.height;
 	texture->buffer = (int **)malloc(sizeof(int *) * height * width);
 	if (!texture->buffer)
-		exit_error("malloc erfror\n");
+		exit_error("malloc error\n");
 	i = 0;
 	while (i < height)
 	{
 		texture->buffer[i] = (int *)malloc(sizeof(int) * width);
 		if (!texture->buffer[i])
-			exit_error("malloc efrror\n");
+			exit_error("malloc error\n");
 		j = 0;
 		while (j < width)
 			texture->buffer[i][j++] = 0;
@@ -47,102 +47,37 @@ void	alloc_buffer(t_texture *texture, t_dis_size dis_size)
 	}
 }
 
-int	init_config(t_map_info *map_info, char *line, int idx)
-{
-	if (line[idx] == 'R')
-		parse_dis_size(map_info, line, idx);
-	else if (!ft_strncmp(line + idx, "EA", 2))
-		parse_walls(&map_info->texture, EA, line, idx);
-	else if (!ft_strncmp(line + idx, "WE", 2))
-		parse_walls(&map_info->texture, WE, line, idx);
-	else if (!ft_strncmp(line + idx, "SO", 2))
-		parse_walls(&map_info->texture, SO, line, idx);
-	else if (!ft_strncmp(line + idx, "NO", 2))
-		parse_walls(&map_info->texture, NO, line, idx);
-	else if (line[idx] == 'F')
-		parse_f(map_info, line, idx);
-	else if (line[idx] == 'C')
-		parse_c(map_info, line, idx);
-	else
-		return (0);
-	return (1);
-}
-
-void	parse_player_pos(t_map_info *map_info)
-{
-	int	i;
-	int	j;
-	int	flag = 0;
-
-	i = 0;
-	while (map_info->map[i])
-	{
-		j = 0;
-		while (map_info->map[i][j])
-		{
-			if (map_info->map[i][j] == 'E' || map_info->map[i][j] == 'W' ||
-				map_info->map[i][j] == 'S' || map_info->map[i][j] == 'N')
-			{
-				if (flag == 1)
-					exit_error("player must be one!\n");
-				map_info->player.pos_y = i + 0.5;
-				map_info->player.pos_x = j + 0.5;
-				flag = 1;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	get_widths(t_map_info *map_info)
+void	init_textures(t_texture *texture)
 {
 	int	i;
 
-	map_info->widths = (int *)malloc(sizeof(int) * map_info->height);
 	i = 0;
-	while (i < map_info->height)
+	while (i < 4)
 	{
-		map_info->widths[i] = ft_strlen(map_info->map[i]);
+		texture->walls[i] = 0;
 		i++;
 	}
+	texture->floor = -1;
+	texture->ceil = -1;
 	return ;
 }
 
-void	init_interrupt(t_interrupt *interrupt)
+void	parse_map(t_map_info *map_info, int fd, char *arr_line, int idx)
 {
-	interrupt->w = 0;
-	interrupt->s = 0;
-	interrupt->a = 0;
-	interrupt->d = 0;
-	interrupt->l = 0;
-	interrupt->r = 0;
-}
-
-void	init_map_info(t_map_info *map_info, int fd)
-{
-	char	*arr_line;
-
-	arr_line = get_next_line(fd);
-	if (!arr_line)
-		exit_error("Empty map !\n");
-	int config_cnt = 0;
-	while (arr_line && config_cnt < 7)
+	map_info->config_cnt = 0;
+	while (arr_line && map_info->config_cnt < 7)
 	{
-		int idx;
 		idx = skip_white_space(arr_line);
 		if (init_config(map_info, arr_line, idx))
-		{
-			config_cnt++;
-		}
+			map_info->config_cnt++;
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
-	if (config_cnt != 7) {
-		exit_error("map must have 7 configures\n");
-	}
+	if (map_info->config_cnt != 7)
+		exit_error("map must have 6 configures\n");
 	alloc_buffer(&map_info->texture, map_info->dis_size);
-	while (arr_line[0] == '\n') {
+	while (arr_line[0] == '\n')
+	{
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
@@ -153,10 +88,26 @@ void	init_map_info(t_map_info *map_info, int fd)
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
+	return ;
+}
+
+void	init_map_info(t_map_info *map_info, int fd)
+{
+	char	*arr_line;
+	int		config_cnt;
+	int		idx;
+
+	init_textures(&(map_info->texture));
+	arr_line = get_next_line(fd);
+	if (!arr_line)
+		exit_error("Empty map !\n");
+	parse_map(map_info, fd, arr_line, idx);
 	map_info->map = ft_split_nl(map_info->map_line, '\n');
 	get_widths(map_info);
 	parse_player_pos(map_info);
 	parse_player(map_info);
 	init_interrupt(&map_info->interrupt);
-	map_info->map[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = '0';
+	map_info->map[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = \
+		'0';
+	return ;
 }

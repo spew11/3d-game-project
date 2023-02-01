@@ -15,6 +15,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		check.c \
 		error.c \
 		parse.c \
+		parse2.c \
 		utils.c \
 		ft_split.c \
 		ft_split_nl.c \
@@ -31,6 +32,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 		draw.c \
 		raycast.c \
 		parse_img.c \
+		bfs_utils.c \
 		)
 
 OBJS = $(SRCS:.c=.o)

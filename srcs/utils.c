@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:50 by taehykim          #+#    #+#             */
-/*   Updated: 2023/01/29 21:29:50 by taehykim         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:47:03 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,18 @@ int	ft_atoi(const char *str)
 	return (get_answer(str, sign));
 }
 
-int *new_arr(int a, int b)
+int	*new_arr(int a, int b)
 {
-	int *arr = (int *)malloc(sizeof(int) * 2);
-	if (!arr) {
+	int	*arr;
+
+	arr = (int *)malloc(sizeof(int) * 2);
+	if (!arr)
+	{
 		exit_error("malloc failed\n");
 	}
 	arr[0] = a;
 	arr[1] = b;
-	return arr;
+	return (arr);
 }
 
 char	*ft_strdup_except_nl(const char *s1)
