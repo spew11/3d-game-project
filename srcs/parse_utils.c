@@ -38,3 +38,13 @@ void	*ft_memset(void *s, int c, size_t n)
 		*ptr++ = (unsigned char)c;
 	return (s);
 }
+
+int	skip_white_space(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && is_space(line[i]))
+		i++;
+	return (i);
+}

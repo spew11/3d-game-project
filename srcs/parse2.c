@@ -27,7 +27,7 @@ int	init_config(t_map_info *map_info, char *line, int idx)
 	else if (line[idx] == 'C')
 		parse_c(map_info, line, idx);
 	else
-		return (0);
+		exit_error("invalid configures\n");
 	return (1);
 }
 

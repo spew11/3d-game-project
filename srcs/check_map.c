@@ -25,7 +25,7 @@ void	check_texture(t_map_info *map_info)
 	}
 	if (!map_info->texture.item)
 		exit_error("item error\n");
-	if (map_info->texture.floor == -1 || map_info->texture.ceil == -1)
+	if (map_info->texture.floor == -1 || map_info->texture.ceiling == -1)
 		exit_error("texture error\n");
 	return ;
 }

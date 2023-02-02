@@ -73,7 +73,7 @@ void	parse_c(t_map_info *map_info, char *line, int idx)
 			exit_error("R, G, B colors in range[0, 255]\n");
 		i++;
 	}
-	map_info->texture.ceil = rgb[0] | rgb[1] << 8 | rgb[2] << 16;
+	map_info->texture.ceiling = rgb[0] | rgb[1] << 8 | rgb[2] << 16;
 	free(rgb);
 	free_arr_2(temp);
 	free_arr_2(temp2);

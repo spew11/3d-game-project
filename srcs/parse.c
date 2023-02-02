@@ -6,21 +6,11 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:30 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/01 19:20:09 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:40:34 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	skip_white_space(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && is_space(line[i]))
-		i++;
-	return (i);
-}
 
 void	alloc_buffer(t_texture *texture)
 {
@@ -54,35 +44,50 @@ void	init_textures(t_texture *texture)
 		i++;
 	}
 	texture->floor = -1;
-	texture->ceil = -1;
+	texture->ceiling = -1;
 	return ;
 }
 
-void	parse_map(t_map_info *map_info, int fd, char *arr_line, int idx)
+void	parse_map(t_map_info *map_info, int fd, char **arr_line)
 {
-	map_info->config_cnt = 0;
-	while (arr_line && map_info->config_cnt < 6)
-	{
-		idx = skip_white_space(arr_line);
-		if (init_config(map_info, arr_line, idx))
-			map_info->config_cnt++;
-		free(arr_line);
-		arr_line = get_next_line(fd);
-	}
-	if (map_info->config_cnt != 6)
-		exit_error("map must have 6 configures\n");
 	alloc_buffer(&map_info->texture);
-	while (arr_line[0] == '\n')
+	while ((*arr_line)[0] == '\n')
 	{
-		free(arr_line);
-		arr_line = get_next_line(fd);
+		free(*arr_line);
+		*arr_line = get_next_line(fd);
 	}
-	while (arr_line)
+	while (*arr_line)
 	{
-		map_info->map_line = ft_strjoin(map_info->map_line, arr_line);
+		map_info->map_line = ft_strjoin(map_info->map_line, *arr_line);
 		map_info->height++;
-		free(arr_line);
-		arr_line = get_next_line(fd);
+		free(*arr_line);
+		*arr_line = get_next_line(fd);
+	}
+	return ;
+}
+
+void	parse_configures(t_map_info *map_info, int fd, char **arr_line, int idx)
+{
+	int	flag;
+
+	*arr_line = get_next_line(fd);
+	if (!(*arr_line))
+		exit_error("Empty map !\n");
+	flag = 0;
+	map_info->config_cnt = 0;
+	while (*arr_line && map_info->config_cnt < 6)
+	{
+		if ((*arr_line)[0] == '\n')
+		{
+			free(*arr_line);
+			*arr_line = get_next_line(fd);
+			continue ;
+		}
+		idx = skip_white_space(*arr_line);
+		if (init_config(map_info, *arr_line, idx))
+			map_info->config_cnt++;
+		free(*arr_line);
+		*arr_line = get_next_line(fd);
 	}
 	return ;
 }
@@ -90,14 +95,12 @@ void	parse_map(t_map_info *map_info, int fd, char *arr_line, int idx)
 void	init_map_info(t_map_info *map_info, int fd)
 {
 	char	*arr_line;
-	int		config_cnt;
 	int		idx;
 
+	idx = 0;
 	init_textures(&(map_info->texture));
-	arr_line = get_next_line(fd);
-	if (!arr_line)
-		exit_error("Empty map !\n");
-	parse_map(map_info, fd, arr_line, idx);
+	parse_configures(map_info, fd, &arr_line, idx);
+	parse_map(map_info, fd, &arr_line);
 	map_info->map = ft_split_nl(map_info->map_line, '\n');
 	get_widths(map_info);
 	parse_player_pos(map_info);

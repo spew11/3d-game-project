@@ -22,7 +22,7 @@ void	draw_updown(t_texture *texture)
 	{
 		j = 0;
 		while (j < DIS_W)
-			texture->buffer[i][j++] = texture->ceil;
+			texture->buffer[i][j++] = texture->ceiling;
 		i++;
 	}
 	while (i < DIS_H)

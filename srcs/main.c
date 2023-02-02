@@ -6,16 +6,11 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:44:04 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/02 13:06:48 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:08:46 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	find_leak(void)
-{
-	system("leaks -list cub3D");
-}
 
 int	loop(t_map_info *map_info)
 {
@@ -31,7 +26,6 @@ int	main(int argc, char *argv[])
 	t_map_info	map_info;
 	int			fd;
 
-	atexit(find_leak);
 	check_arg(argc, argv);
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd);

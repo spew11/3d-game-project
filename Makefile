@@ -1,7 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: eunjilee <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/02 15:58:03 by eunjilee          #+#    #+#              #
+#    Updated: 2023/02/02 16:06:12 by eunjilee         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3D
 CC = cc
-CFLAGS = -Imlx -c
-# CFLAGS = -Wall -Wextra -Werror -Imlx -c
+CFLAGS = -Wall -Wextra -Werror -Imlx -c
 RM = rm -f
 AR = ar
 CRS = crs

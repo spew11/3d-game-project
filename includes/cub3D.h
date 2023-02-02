@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:25:29 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/01 19:13:46 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:56:42 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,28 @@
 # define DIS_W		1024
 # define DIS_H		720
 
-typedef struct s_node {
+typedef struct s_node
+{
 	int				*content;
 	struct s_node	*next;
 }			t_node;
 
-typedef struct s_queue {
+typedef struct s_queue
+{
 	t_node	*front;
 	t_node	*back;
 }			t_queue;
 
-typedef struct s_bfs {
+typedef struct s_bfs
+{
 	t_queue	*q;
 	int		**visited;
-	int	dy[4];
-	int	dx[4];
+	int		dy[4];
+	int		dx[4];
 }			t_bfs;
 
-typedef struct s_interrupt {
+typedef struct s_interrupt
+{
 	int	w;
 	int	a;
 	int	s;
@@ -71,14 +75,15 @@ typedef struct s_interrupt {
 	int	r;
 }		t_interrupt;
 
-typedef struct s_texture {
+typedef struct s_texture
+{
 	int		**buffer;
 	char	*walls[4];
 	int		*walls_img[4];
 	char	*item;
 	int		*item_img;
 	int		floor;
-	int		ceil;
+	int		ceiling;
 	int		*data;
 	void	*img;
 	int		bpp;
@@ -86,29 +91,30 @@ typedef struct s_texture {
 	int		endian;
 }			t_texture;
 
-typedef struct s_player {
+typedef struct s_player
+{
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-
 }			t_player;
 
-typedef struct s_ray {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+typedef struct s_ray
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
 	int		hit;
 	int		side;
 	int		start;
@@ -118,10 +124,10 @@ typedef struct s_ray {
 	int		tex_y;
 	double	ratio;
 	double	texpos;
-
 }			t_ray;
 
-typedef struct s_map_info {
+typedef struct s_map_info
+{
 	t_texture	texture;
 	t_player	player;
 	t_ray		ray;
@@ -135,7 +141,6 @@ typedef struct s_map_info {
 	int			config_cnt;
 }			t_map_info;
 
-
 //		utils
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -146,6 +151,8 @@ char	*ft_strdup_except_nl(const char *s);
 
 //		parse
 
+void	parse_configures(t_map_info *map_info, int fd,
+			char **arr_line, int idx);
 void	init_map_info(t_map_info *map_info, int fd);
 char	**ft_split(char const *s, char c);
 char	**ft_split_nl(char const *s, char c);
@@ -169,6 +176,7 @@ void	free_double_int(int **arr, int size);
 int		is_space(char c);
 int		count_arr_2(char **arr);
 void	*ft_memset(void *s, int c, size_t n);
+int		skip_white_space(char *line);
 
 //		parse_config
 
@@ -181,7 +189,7 @@ void	parse_c(t_map_info *map_info, char *line, int idx);
 void	check_map(t_map_info *map_info);
 int		q_empty(t_queue *q);
 void	q_append(t_queue *q, int *e);
-int*	q_pop(t_queue *q);
+int		*q_pop(t_queue *q);
 void	q_clear(t_queue *q);
 
 //		interrupt
@@ -231,13 +239,13 @@ void	ft_free_split(char **strs, int i);
 
 //		bfs_utils
 
-int	is_valid(t_map_info *map_info, int y, int x);
+int		is_valid(t_map_info *map_info, int y, int x);
 void	init_visited(t_map_info *map_info, int **visited);
 void	init_dydx(int *dy, int *dx);
-int	*new_arr(int a, int b);
+int		*new_arr(int a, int b);
 
 //		parse2
-int	init_config(t_map_info *map_info, char *line, int idx);
+int		init_config(t_map_info *map_info, char *line, int idx);
 void	parse_player_pos(t_map_info *map_info);
 void	get_widths(t_map_info *map_info);
 void	init_interrupt(t_interrupt *interrupt);

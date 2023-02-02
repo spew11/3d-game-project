@@ -14,38 +14,38 @@
 
 void	ray_init_2(t_ray *ray, t_player *player)
 {
-	if (ray->rayDirX < 0)
+	if (ray->ray_dir_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (player->pos_x - ray->mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_dist_x = (player->pos_x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1 - player->pos_x) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1 - player->pos_x) * ray->delta_dist_x;
 	}
-	if (ray->rayDirY < 0)
+	if (ray->ray_dir_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (player->pos_y - ray->mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_dist_y = (player->pos_y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1 - player->pos_y) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1 - player->pos_y) * ray->delta_dist_y;
 	}
 }
 
 void	ray_init(t_ray *ray, t_player *player, int x)
 {
-	ray->cameraX = 2 * x / (double)DIS_W - 1;
+	ray->camera_x = 2 * x / (double)DIS_W - 1;
 	if ((DIS_W - 1) == x)
-		ray->cameraX = 1;
-	ray->rayDirX = player->dir_x + player->plane_x * ray->cameraX;
-	ray->rayDirY = player->dir_y + player->plane_y * ray->cameraX;
-	ray->mapX = (int)player->pos_x;
-	ray->mapY = (int)player->pos_y;
-	ray->deltaDistX = fabs(1 / ray->rayDirX);
-	ray->deltaDistY = fabs(1 / ray->rayDirY);
+		ray->camera_x = 1;
+	ray->ray_dir_x = player->dir_x + player->plane_x * ray->camera_x;
+	ray->ray_dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->map_x = (int)player->pos_x;
+	ray->map_y = (int)player->pos_y;
+	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	ray_init_2(ray, player);
 }

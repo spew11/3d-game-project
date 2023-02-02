@@ -19,25 +19,25 @@ void	dda(t_map_info *map_info, t_ray *ray)
 	hit = 0;
 	while (!hit)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 			ray->side = WALL_X;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 			ray->side = WALL_Y;
 		}
-		if (map_info->map[ray->mapY][ray->mapX] == '1')
+		if (map_info->map[ray->map_y][ray->map_x] == '1')
 			hit = 1;
 	}
 	if (ray->side == WALL_X)
-		ray->perpWallDist = ray->sideDistX - ray->deltaDistX;
+		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
-		ray->perpWallDist = ray->sideDistY - ray->deltaDistY;
+		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
 
 void	draw_wall_2(t_ray *ray, t_texture *texture, int x)
@@ -51,14 +51,14 @@ void	draw_wall_2(t_ray *ray, t_texture *texture, int x)
 		ray->tex_y = (int)ray->texpos & (TEX_H - 1);
 		if (ray->side == WALL_X)
 		{
-			if (ray->rayDirX >= 0)
+			if (ray->ray_dir_x >= 0)
 				color = texture->walls_img[EA][TEX_H * ray->tex_y + ray->tex_x];
 			else
 				color = texture->walls_img[WE][TEX_H * ray->tex_y + ray->tex_x];
 		}
 		else if (ray->side == WALL_Y)
 		{
-			if (ray->rayDirY >= 0)
+			if (ray->ray_dir_y >= 0)
 				color = texture->walls_img[SO][TEX_H * ray->tex_y + ray->tex_x];
 			else
 				color = texture->walls_img[NO][TEX_H * ray->tex_y + ray->tex_x];
@@ -74,16 +74,16 @@ void	draw_wall(t_ray *ray, t_player *player)
 	double	wall;
 
 	if (ray->side == WALL_X)
-		wall = player->pos_y + (ray->perpWallDist * ray->rayDirY);
+		wall = player->pos_y + (ray->perp_wall_dist * ray->ray_dir_y);
 	else
-		wall = player->pos_x + (ray->perpWallDist * ray->rayDirX);
+		wall = player->pos_x + (ray->perp_wall_dist * ray->ray_dir_x);
 	wall = wall - floor(wall);
 	ray->tex_x = (int)(wall * (double)TEX_W);
-	if (ray->side == WALL_X && ray->rayDirX < 0)
+	if (ray->side == WALL_X && ray->ray_dir_x < 0)
 		ray->tex_x = TEX_W - ray->tex_x - 1;
-	if (ray->side == WALL_Y && ray->rayDirY > 0)
+	if (ray->side == WALL_Y && ray->ray_dir_y > 0)
 		ray->tex_x = TEX_W - ray->tex_x - 1;
-	ray->line = (int)(DIS_H / ray->perpWallDist);
+	ray->line = (int)(DIS_H / ray->perp_wall_dist);
 	ray->start = DIS_H / 2 - ray->line / 2;
 	ray->end = DIS_H / 2 + ray->line / 2;
 	if (ray->start < 0)
