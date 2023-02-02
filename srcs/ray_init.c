@@ -36,10 +36,10 @@ void	ray_init_2(t_ray *ray, t_player *player)
 	}
 }
 
-void	ray_init(t_ray *ray, t_player *player, t_dis_size dis_size, int x)
+void	ray_init(t_ray *ray, t_player *player, int x)
 {
-	ray->cameraX = 2 * x / (double)dis_size.width - 1;
-	if ((dis_size.width - 1) == x)
+	ray->cameraX = 2 * x / (double)DIS_W - 1;
+	if ((DIS_W - 1) == x)
 		ray->cameraX = 1;
 	ray->rayDirX = player->dir_x + player->plane_x * ray->cameraX;
 	ray->rayDirY = player->dir_y + player->plane_y * ray->cameraX;

@@ -22,26 +22,22 @@ int	skip_white_space(char *line)
 	return (i);
 }
 
-void	alloc_buffer(t_texture *texture, t_dis_size dis_size)
+void	alloc_buffer(t_texture *texture)
 {
-	int	width;
-	int	height;
 	int	i;
 	int	j;
 
-	width = dis_size.width;
-	height = dis_size.height;
-	texture->buffer = (int **)malloc(sizeof(int *) * height * width);
+	texture->buffer = (int **)malloc(sizeof(int *) * DIS_H * DIS_W);
 	if (!texture->buffer)
 		exit_error("malloc error\n");
 	i = 0;
-	while (i < height)
+	while (i < DIS_H)
 	{
-		texture->buffer[i] = (int *)malloc(sizeof(int) * width);
+		texture->buffer[i] = (int *)malloc(sizeof(int) * DIS_W);
 		if (!texture->buffer[i])
 			exit_error("malloc error\n");
 		j = 0;
-		while (j < width)
+		while (j < DIS_W)
 			texture->buffer[i][j++] = 0;
 		i++;
 	}
@@ -65,7 +61,7 @@ void	init_textures(t_texture *texture)
 void	parse_map(t_map_info *map_info, int fd, char *arr_line, int idx)
 {
 	map_info->config_cnt = 0;
-	while (arr_line && map_info->config_cnt < 7)
+	while (arr_line && map_info->config_cnt < 6)
 	{
 		idx = skip_white_space(arr_line);
 		if (init_config(map_info, arr_line, idx))
@@ -73,9 +69,9 @@ void	parse_map(t_map_info *map_info, int fd, char *arr_line, int idx)
 		free(arr_line);
 		arr_line = get_next_line(fd);
 	}
-	if (map_info->config_cnt != 7)
+	if (map_info->config_cnt != 6)
 		exit_error("map must have 6 configures\n");
-	alloc_buffer(&map_info->texture, map_info->dis_size);
+	alloc_buffer(&map_info->texture);
 	while (arr_line[0] == '\n')
 	{
 		free(arr_line);

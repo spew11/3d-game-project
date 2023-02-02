@@ -42,7 +42,8 @@
 # define WALLDIST	1.1
 # define TEX_W		64
 # define TEX_H		64
-
+# define DIS_W		1024
+# define DIS_H		720
 
 typedef struct s_node {
 	int				*content;
@@ -85,11 +86,6 @@ typedef struct s_texture {
 	int		endian;
 }			t_texture;
 
-typedef struct s_dis_size {
-	int	width;
-	int	height;
-}			t_dis_size;
-
 typedef struct s_player {
 	double	pos_x;
 	double	pos_y;
@@ -126,7 +122,6 @@ typedef struct s_ray {
 }			t_ray;
 
 typedef struct s_map_info {
-	t_dis_size	dis_size;
 	t_texture	texture;
 	t_player	player;
 	t_ray		ray;
@@ -177,7 +172,6 @@ void	*ft_memset(void *s, int c, size_t n);
 
 //		parse_config
 
-void	parse_dis_size(t_map_info *map_info, char *line, int idx);
 void	parse_walls(t_texture *texture, int wall_type, char *line, int idx);
 void	parse_f(t_map_info *map_info, char *line, int idx);
 void	parse_c(t_map_info *map_info, char *line, int idx);
@@ -215,17 +209,17 @@ void	parse_player(t_map_info *map_info);
 
 //		draw
 
-void	draw_updown(t_dis_size dis_size, t_texture *texture);
-void	draw_img(t_map_info *map_info, t_dis_size dis_size, t_texture *texture);
+void	draw_updown(t_texture *texture);
+void	draw_img(t_map_info *map_info, t_texture *texture);
 
 //		ray_init
 
-void	ray_init(t_ray *ray, t_player *player, t_dis_size dis_size, int x);
+void	ray_init(t_ray *ray, t_player *player, int x);
 
 //		raycast
 
 void	dda(t_map_info *map_info, t_ray *ray);
-void	raycast(t_map_info *map_info, t_dis_size dis_size);
+void	raycast(t_map_info *map_info);
 
 //		parse_img
 

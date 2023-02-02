@@ -69,7 +69,7 @@ void	draw_wall_2(t_ray *ray, t_texture *texture, int x)
 	}
 }
 
-void	draw_wall(t_ray *ray, t_player *player, t_dis_size dis_size)
+void	draw_wall(t_ray *ray, t_player *player)
 {
 	double	wall;
 
@@ -83,28 +83,28 @@ void	draw_wall(t_ray *ray, t_player *player, t_dis_size dis_size)
 		ray->tex_x = TEX_W - ray->tex_x - 1;
 	if (ray->side == WALL_Y && ray->rayDirY > 0)
 		ray->tex_x = TEX_W - ray->tex_x - 1;
-	ray->line = (int)(dis_size.height / ray->perpWallDist);
-	ray->start = dis_size.height / 2 - ray->line / 2;
-	ray->end = dis_size.height / 2 + ray->line / 2;
+	ray->line = (int)(DIS_H / ray->perpWallDist);
+	ray->start = DIS_H / 2 - ray->line / 2;
+	ray->end = DIS_H / 2 + ray->line / 2;
 	if (ray->start < 0)
 		ray->start = 0;
-	if (ray->end >= dis_size.height)
-		ray->end = dis_size.height;
+	if (ray->end >= DIS_H)
+		ray->end = DIS_H;
 	ray->ratio = 1.0 * TEX_H / ray->line;
-	ray->texpos = (ray->start - dis_size.height / \
+	ray->texpos = (ray->start - DIS_H / \
 	2 + ray->line / 2) * ray->ratio;
 }
 
-void	raycast(t_map_info *map_info, t_dis_size dis_size)
+void	raycast(t_map_info *map_info)
 {
 	int	x;
 
 	x = 0;
-	while (x < dis_size.width)
+	while (x < DIS_W)
 	{
-		ray_init(&map_info->ray, &map_info->player, map_info->dis_size, x);
+		ray_init(&map_info->ray, &map_info->player, x);
 		dda(map_info, &map_info->ray);
-		draw_wall(&map_info->ray, &map_info->player, map_info->dis_size);
+		draw_wall(&map_info->ray, &map_info->player);
 		draw_wall_2(&map_info->ray, &map_info->texture, x);
 		x++;
 	}

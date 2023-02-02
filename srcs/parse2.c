@@ -14,9 +14,7 @@
 
 int	init_config(t_map_info *map_info, char *line, int idx)
 {
-	if (line[idx] == 'R')
-		parse_dis_size(map_info, line, idx);
-	else if (!ft_strncmp(line + idx, "EA", 2))
+	if (!ft_strncmp(line + idx, "EA", 2))
 		parse_walls(&map_info->texture, EA, line, idx);
 	else if (!ft_strncmp(line + idx, "WE", 2))
 		parse_walls(&map_info->texture, WE, line, idx);

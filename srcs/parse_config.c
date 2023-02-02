@@ -12,21 +12,6 @@
 
 #include "cub3D.h"
 
-void	parse_dis_size(t_map_info *map_info, char *line, int idx)
-{
-	char	**temp;
-	int		i;
-
-	temp = ft_split(line + idx, ' ');
-	i = 0;
-	while (temp[i])
-		i++;
-	if (i > 3)
-		exit_error("format : R width height\n");
-	map_info->dis_size.width = ft_atoi(temp[1]);
-	map_info->dis_size.height = ft_atoi(temp[2]);
-}
-
 void	parse_walls(t_texture *texture, int wall_type, char *line, int idx)
 {
 	char	**temp;

@@ -19,9 +19,9 @@ void	find_leak(void)
 
 int	loop(t_map_info *map_info)
 {
-	draw_updown(map_info->dis_size, &map_info->texture);
-	raycast(map_info, map_info->dis_size);
-	draw_img(map_info, map_info->dis_size, &map_info->texture);
+	draw_updown(&map_info->texture);
+	raycast(map_info);
+	draw_img(map_info, &map_info->texture);
 	interrupt(map_info, map_info->interrupt);
 	return (0);
 }
@@ -37,12 +37,11 @@ int	main(int argc, char *argv[])
 	check_fd(fd);
 	init_map_info(&map_info, fd);
 	map_info.mlx = mlx_init();
-	map_info.win = mlx_new_window(map_info.mlx, \
-	map_info.dis_size.width, map_info.dis_size.height, "cub3D");
+	map_info.win = mlx_new_window(map_info.mlx, DIS_W, DIS_H, "cub3D");
 	parse_img(&map_info, &map_info.texture);
 	check_map(&map_info);
 	map_info.texture.img = mlx_new_image(map_info.mlx,
-			map_info.dis_size.width, map_info.dis_size.height);
+			DIS_W, DIS_H);
 	map_info.texture.data = (int *)mlx_get_data_addr(map_info.texture.img,
 			&map_info.texture.bpp, &map_info.texture.size_line,
 			&map_info.texture.endian);

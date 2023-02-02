@@ -12,40 +12,40 @@
 
 #include "cub3D.h"
 
-void	draw_updown(t_dis_size dis_size, t_texture *texture)
+void	draw_updown(t_texture *texture)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < dis_size.height / 2)
+	while (i < DIS_H / 2)
 	{
 		j = 0;
-		while (j < dis_size.width)
+		while (j < DIS_W)
 			texture->buffer[i][j++] = texture->ceil;
 		i++;
 	}
-	while (i < dis_size.height)
+	while (i < DIS_H)
 	{
 		j = 0;
-		while (j < dis_size.width)
+		while (j < DIS_W)
 			texture->buffer[i][j++] = texture->floor;
 		i++;
 	}
 }
 
-void	draw_img(t_map_info *map_info, t_dis_size dis_size, t_texture *texture)
+void	draw_img(t_map_info *map_info, t_texture *texture)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < dis_size.height)
+	while (i < DIS_H)
 	{
 		j = 0;
-		while (j < dis_size.width)
+		while (j < DIS_W)
 		{
-			texture->data[i * dis_size.width + j] = texture->buffer[i][j];
+			texture->data[i * DIS_W + j] = texture->buffer[i][j];
 			j++;
 		}
 		i++;
