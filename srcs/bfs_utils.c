@@ -60,3 +60,17 @@ void	init_dydx(int *dy, int *dx)
 	dx[3] = -1;
 	return ;
 }
+
+int	*new_arr(int a, int b)
+{
+	int	*arr;
+
+	arr = (int *)malloc(sizeof(int) * 2);
+	if (!arr)
+	{
+		exit_error("malloc failed\n");
+	}
+	arr[0] = a;
+	arr[1] = b;
+	return (arr);
+}

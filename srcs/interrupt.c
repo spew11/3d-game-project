@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:43:41 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/01 18:42:15 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:03:02 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	exit_game(t_map_info *map_info)
 
 int	interrupt(t_map_info *map_info, t_interrupt interrupt)
 {
-	printf("%d\n", interrupt.w);
-	printf("plane_x=%f plane_y=%f x=%f y=%f\n", map_info->player.plane_x, \
-			map_info->player.plane_y, map_info->player.pos_x, map_info->player.pos_y);
 	if (interrupt.w && !interrupt.s)
 		move_w(map_info, &map_info->player);
 	if (interrupt.s && !interrupt.w)
@@ -75,13 +72,4 @@ int	key_release(int keycode, t_map_info *map_info)
 	if (keycode == KEY_R)
 		map_info->interrupt.r = 0;
 	return (0);
-}
-
-void	print_player_k(t_map_info map_info)
-{
-	printf("\n");
-	printf("========= player ==========\n");
-	printf("pos_x=%lf pos_y=%lf\n", map_info.player.pos_x, map_info.player.pos_y);
-	printf("dir_x=%lf dir_y=%lf	%lf\n", map_info.player.dir_x, map_info.player.dir_y, pow(map_info.player.dir_x, 2) + pow(map_info.player.dir_y, 2));
-	printf("plane_x=%lf plane_y=%lf	%lf\n", map_info.player.plane_x, map_info.player.plane_y, pow(map_info.player.plane_x, 2) + pow(map_info.player.plane_y, 2));
 }

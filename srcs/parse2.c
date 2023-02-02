@@ -85,4 +85,3 @@ void	init_interrupt(t_interrupt *interrupt)
 	interrupt->l = 0;
 	interrupt->r = 0;
 }
-

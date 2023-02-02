@@ -240,6 +240,7 @@ void	ft_free_split(char **strs, int i);
 int	is_valid(t_map_info *map_info, int y, int x);
 void	init_visited(t_map_info *map_info, int **visited);
 void	init_dydx(int *dy, int *dx);
+int	*new_arr(int a, int b);
 
 //		parse2
 int	init_config(t_map_info *map_info, char *line, int idx);
