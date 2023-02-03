@@ -64,5 +64,6 @@ void	q_clear(t_queue *q)
 		free(tmp->content);
 		free(tmp);
 	}
+	free(q);
 	return ;
 }

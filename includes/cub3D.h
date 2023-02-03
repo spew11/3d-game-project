@@ -243,6 +243,7 @@ int		is_valid(t_map_info *map_info, int y, int x);
 void	init_visited(t_map_info *map_info, int **visited);
 void	init_dydx(int *dy, int *dx);
 int		*new_arr(int a, int b);
+void	init_bfs(t_map_info *map_info, t_bfs *bfs);
 
 //		parse2
 int		init_config(t_map_info *map_info, char *line, int idx);

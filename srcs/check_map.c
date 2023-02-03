@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:28:22 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/01 18:36:21 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:27:03 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,7 @@ void	check_wall(t_map_info *map_info)
 	int		y;
 	int		x;
 
-	bfs.q = (t_queue *)malloc(sizeof(t_queue) * 1);
-	if (!bfs.q)
-		exit_error("malloc failed\n");
-	bfs.q->front = 0;
-	bfs.visited = (int **)malloc(sizeof(int *) * (map_info->height));
-	if (!bfs.visited)
-		exit_error("malloc failed\n");
-	init_visited(map_info, bfs.visited);
-	init_dydx(bfs.dy, bfs.dx);
+	init_bfs(map_info, &bfs);
 	q_append(bfs.q, new_arr(map_info->player.pos_y, map_info->player.pos_x));
 	bfs.visited[(int)map_info->player.pos_y][(int)map_info->player.pos_x] = 1;
 	while (!q_empty(bfs.q))
@@ -82,9 +74,11 @@ void	check_wall(t_map_info *map_info)
 		y = now[0];
 		x = now[1];
 		search_adjoin(map_info, &bfs, y, x);
+		free(now);
 	}
 	free_double_int(bfs.visited, map_info->height);
 	q_clear(bfs.q);
+	return ;
 }
 
 void	check_map_argc(t_map_info *map_info)

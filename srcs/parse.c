@@ -6,7 +6,7 @@
 /*   By: taehykim <taehykim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:29:30 by taehykim          #+#    #+#             */
-/*   Updated: 2023/02/02 15:40:34 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:27:45 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	parse_map(t_map_info *map_info, int fd, char **arr_line)
 	while (*arr_line)
 	{
 		map_info->map_line = ft_strjoin(map_info->map_line, *arr_line);
+		if (!map_info->map_line)
+			exit_error("malloc failed\n");
 		map_info->height++;
 		free(*arr_line);
 		*arr_line = get_next_line(fd);
@@ -68,12 +70,9 @@ void	parse_map(t_map_info *map_info, int fd, char **arr_line)
 
 void	parse_configures(t_map_info *map_info, int fd, char **arr_line, int idx)
 {
-	int	flag;
-
 	*arr_line = get_next_line(fd);
 	if (!(*arr_line))
 		exit_error("Empty map !\n");
-	flag = 0;
 	map_info->config_cnt = 0;
 	while (*arr_line && map_info->config_cnt < 6)
 	{

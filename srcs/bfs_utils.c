@@ -6,7 +6,7 @@
 /*   By: eunjilee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:08:20 by eunjilee          #+#    #+#             */
-/*   Updated: 2023/02/01 20:08:21 by eunjilee         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:32:37 by eunjilee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,17 @@ int	*new_arr(int a, int b)
 	arr[0] = a;
 	arr[1] = b;
 	return (arr);
+}
+
+void	init_bfs(t_map_info *map_info, t_bfs *bfs)
+{
+	bfs->q = (t_queue *)malloc(sizeof(t_queue) * 1);
+	if (!(bfs->q))
+		exit_error("malloc failed\n");
+	bfs->q->front = 0;
+	bfs->visited = (int **)malloc(sizeof(int *) * (map_info->height));
+	if (!(bfs->visited))
+		exit_error("malloc failed\n");
+	init_visited(map_info, bfs->visited);
+	init_dydx(bfs->dy, bfs->dx);
 }
