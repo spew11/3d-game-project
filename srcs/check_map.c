@@ -49,10 +49,10 @@ void	search_adjoin(t_map_info *map_info, t_bfs *bfs, int y, int x)
 				bfs->visited[ny][nx] = 1;
 			}
 			else if (bfs->visited[ny][nx] == 0 && map_info->map[ny][nx] == ' ')
-				exit_error("map must be surrounded by wall\n");
+				exit_error("map error\n");
 		}
 		else
-			exit_error("map must be surrounded by wall\n");
+			exit_error("map error\n");
 		i++;
 	}
 	return ;

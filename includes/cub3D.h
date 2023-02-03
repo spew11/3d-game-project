@@ -42,8 +42,8 @@
 # define WALLDIST	1.1
 # define TEX_W		512
 # define TEX_H		512
-# define DIS_W		1024
-# define DIS_H		720
+# define DIS_W		1920
+# define DIS_H		1080
 
 typedef struct s_node
 {
