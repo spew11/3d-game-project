@@ -40,8 +40,8 @@
 # define WALL_X		0
 # define WALL_Y 	1
 # define WALLDIST	1.1
-# define TEX_W		64
-# define TEX_H		64
+# define TEX_W		512
+# define TEX_H		512
 # define DIS_W		1024
 # define DIS_H		720
 
